@@ -1,0 +1,23 @@
+<?xml version="1.0" ?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Acl/etc/acl.xsd">
+	<acl>
+		<resources>
+			<resource id="Magento_Backend::admin">
+				<resource id="Angel_Fifty::fifty" sortOrder="10" title="fifty">
+					<resource id="Angel_Fifty::manager" sortOrder="10" title="index index"/>
+					<resource id="Angel_Fifty::ticket" sortOrder="10" title="report sales"/>
+				</resource>
+				<resource id="Magento_Backend::stores">
+					<resource id="Magento_Backend::stores_settings">
+						<resource id="Magento_Config::config">
+							<resource id="Angel_Fifty::config" title="50-50 Raffle Setting"/>
+						</resource>
+					</resource>
+				</resource>
+				<resource id="Magento_Sales::sales">
+					<resource id="Angel_Fifty::report_sales"   title="50-50 Raffle Report" translate="title" sortOrder="20" />
+				</resource>
+			</resource>
+		</resources>
+	</acl>
+</config>

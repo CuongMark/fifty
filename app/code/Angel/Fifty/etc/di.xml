@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+	<preference for="Angel\Fifty\Api\TicketRepositoryInterface" type="Angel\Fifty\Model\TicketRepository"/>
+	<preference for="Angel\Fifty\Api\Data\TicketInterface" type="Angel\Fifty\Model\Data\Ticket"/>
+	<preference for="Angel\Fifty\Api\Data\TicketSearchResultsInterface" type="Magento\Framework\Api\SearchResults"/>
+	<virtualType name="Angel\Fifty\Model\ResourceModel\Ticket\Grid\Collection" type="Magento\Framework\View\Element\UiComponent\DataProvider\SearchResult">
+		<arguments>
+			<argument name="mainTable" xsi:type="string">angel_fifty_ticket</argument>
+			<argument name="resourceModel" xsi:type="string">Angel\Fifty\Model\ResourceModel\Ticket\Collection</argument>
+		</arguments>
+	</virtualType>
+	<type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
+		<arguments>
+			<argument name="collections" xsi:type="array">
+				<item name="angel_fifty_ticket_listing_data_source" xsi:type="string">Angel\Fifty\Model\ResourceModel\Ticket\Grid\Collection</item>
+			</argument>
+		</arguments>
+	</type>
+	<preference for="Angel\Fifty\Api\PrizeRepositoryInterface" type="Angel\Fifty\Model\PrizeRepository"/>
+	<preference for="Angel\Fifty\Api\Data\PrizeInterface" type="Angel\Fifty\Model\Data\Prize"/>
+	<preference for="Angel\Fifty\Api\Data\PrizeSearchResultsInterface" type="Magento\Framework\Api\SearchResults"/>
+</config>

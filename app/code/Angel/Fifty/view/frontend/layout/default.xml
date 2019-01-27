@@ -1,0 +1,11 @@
+<?xml version="1.0" ?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+	<body>
+		<referenceContainer name="left">
+			<block as="fifty_sidebar" class="Angel\Fifty\Block\Fifty\Sidebar" name="fifty.sidebar" template="Angel_Fifty::fifty/sidebar.phtml"/>
+		</referenceContainer>
+		<!--<referenceContainer name="footer">-->
+			<!--<block as="fifty_popup" class="Angel\Fifty\Block\Fifty\Popup" name="fifty.popup" template="Angel_Fifty::fifty/popup.phtml"/>-->
+		<!--</referenceContainer>-->
+	</body>
+</page>

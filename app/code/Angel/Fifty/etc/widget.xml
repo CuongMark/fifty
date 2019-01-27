@@ -1,0 +1,12 @@
+<?xml version="1.0" ?>
+<widgets xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Widget:etc/widget.xsd">
+	<widget class="Angel\Fifty\Block\Widget\Fifty_raffle" id="angel_fifty_fifty_raffle">
+		<label>fifty_raffle</label>
+		<description>fifty_raffle</description>
+		<parameters>
+			<parameter name="list" sort_order="10" source_model="Magento\Config\Model\Config\Source\Yesno" visible="true" xsi:type="select">
+				<label>list</label>
+			</parameter>
+		</parameters>
+	</widget>
+</widgets>
