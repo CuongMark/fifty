@@ -1,0 +1,80 @@
+<!--
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+ -->
+
+<div class="block-authentication"
+     data-bind="afterRender: setModalElement, blockLoader: isLoading"
+     style="display: none">
+    <div class="block block-new-customer">
+        <div class="block-title">
+            <strong id="block-new-customer-heading"
+                    role="heading"
+                    aria-level="2"
+                    data-bind="text: productName"></strong>
+        </div>
+        <div class="block-content" aria-labelledby="block-new-customer-heading">
+            <img class="product-image-photo" style="position: inherit" data-bind="attr:{src : productImage }" max-width="500" max-height="500" alt="Fifty">
+        </div>
+    </div>
+
+    <div class="block block-customer-login">
+        <div class="block-title">
+            <strong id="block-customer-login-heading"
+                    role="heading"
+                    aria-level="2"
+                    data-bind="i18n: 'Purchase Tickets'"></strong>
+        </div>
+
+        <!-- ko if: (message) -->
+        <div data-bind="attr: {class: isSuccess?'purchase-message success':'purchase-message error'}">
+            <span data-bind="text:message" ></span>
+        </div>
+        <!--/ko-->
+
+        <!--<span class="countdown_row countdown_show4">-->
+            <!--<span class="countdown_section"><span class="countdown_amount" data-bind="text: day"></span><br>Days</span>-->
+            <!--<span class="countdown_section"><span class="countdown_amount" data-bind="text: hour"></span><br>Hours</span>-->
+            <!--<span class="countdown_section"><span class="countdown_amount" data-bind="text: minute"></span><br>Minutes</span>-->
+            <!--<span class="countdown_section"><span class="countdown_amount" data-bind="text: second"></span><br>Seconds</span>-->
+        <!--</span>-->
+
+        <div class="price-box" data-role="priceBox">
+            <span class="price-container">
+                <span class="price-wrapper "><span class="price" data-bind="text: currentPotText"></span></span>
+            </span>
+        </div>
+        <div class="price-box price-final_price" data-role="priceBox" data-product-id="1" data-price-box="product-id-1">
+            <span class="price-container price-final_price tax weee">
+                <span class="price-wrapper "><span class="price" data-bind="text: productPriceFormated"></span></span>
+            </span>
+        </div>
+        <div class="block-content" aria-labelledby="block-customer-login-heading">
+            <form class="form form-login"
+                  method="post"
+                  data-bind="event: {submit: purchase }"
+                  id="purchase-tickets-form">
+                <div class="fieldset login" data-bind="attr: {'data-hasrequired': $t('* Required Fields')}">
+                    <div class="field email required">
+                        <label class="label" for="qty"><span data-bind="i18n: 'Qty'"></span></label>
+                        <div class="control">
+                            <input type="number" name="qty" id="qty" value="1" title="Qty" class="input-text qty"
+                                   data-validate="{ 'required-number' : true, 'validate-item-quantity' :{ 'minAllowed' :1, 'maxAllowed' :100000}}">
+                        </div>
+                        <div class="suggess"><span data-bind="text: suggestCreditBalance"></span></div>
+                    </div>
+                    <div class="actions-toolbar">
+                        <input name="context" type="hidden" value="purchase-ticket" />
+                        <div class="primary">
+                            <button type="submit" class="action action-login secondary" name="send" id="purchase">
+                                <span data-bind="i18n: 'Purchase'"></span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

@@ -96,11 +96,6 @@ class TicketRepository implements TicketRepositoryInterface
     public function save(
         \Angel\Fifty\Api\Data\TicketInterface $ticket
     ) {
-        /* if (empty($ticket->getStoreId())) {
-            $storeId = $this->storeManager->getStore()->getId();
-            $ticket->setStoreId($storeId);
-        } */
-        
         $ticketData = $this->extensibleDataObjectConverter->toNestedArray(
             $ticket,
             [],

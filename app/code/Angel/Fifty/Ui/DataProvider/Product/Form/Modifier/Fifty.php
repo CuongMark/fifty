@@ -50,7 +50,35 @@ class Fifty extends AbstractModifier
         if ($product->getTypeId() != \Angel\Fifty\Model\Product\Type\Fifty::TYPE_ID){
             return $meta;
         }
-        return $this->meta;
+        $meta = $this->enableTime($meta);
+        $meta = $this->disableSerialField($meta);
+        return $meta;
+    }
+
+    protected function disableSerialField(array $meta){
+        $meta = array_replace_recursive(
+            $meta,
+            [
+                'product-details' => [
+                    'children' => [
+                        'container_fifty_status' => [
+                            'children' => [
+                                'fifty_status' =>[
+                                    'arguments' => [
+                                        'data' => [
+                                            'config' => [
+                                                'disabled' => false,
+                                            ],
+                                        ],
+                                    ]
+                                ]
+                            ]
+                        ]
+                    ]
+                ]
+            ]
+        );
+        return $meta;
     }
 
     /**

@@ -1,0 +1,10 @@
+<?php /** @var \Angel\Fifty\Block\Customer\Edit $block */ ?>
+<fieldset class="fieldset nick_name" data-container="nick_name">
+    <legend class="legend"><span data-title="nick_name"><?= $block->escapeHtml(__('Raffle')) ?></span></legend><br>
+    <div class="field password current required">
+        <label class="label" for="nick_name"><span><?= $block->escapeHtml(__('Nick Name')) ?></span></label>
+        <div class="control">
+            <input type="text" class="input-text" name="nick_name" id="nick_name" value="<?= $block->getNickName() ?>" data-validate="{required:true}" autocomplete="off" />
+        </div>
+    </div>
+</fieldset>

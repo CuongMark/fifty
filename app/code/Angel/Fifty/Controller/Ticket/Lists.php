@@ -11,7 +11,7 @@
 
 namespace Angel\Fifty\Controller\Ticket;
 
-class List extends \Magento\Framework\App\Action\Action
+class Lists extends \Magento\Framework\App\Action\Action
 {
 
     protected $resultPageFactory;

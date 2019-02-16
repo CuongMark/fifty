@@ -1,0 +1,6 @@
+.purchase-message.success{
+    background-color: #0DFF92;
+}
+.purchase-message.error{
+    background-color: indianred;
+}

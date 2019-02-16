@@ -1,9 +1,11 @@
 <?xml version="1.0" ?>
 <page layout="2columns-left" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+	<head>
+		<css src="Angel_Fifty::css/countdown/timebox.css"/>
+	</head>
 	<body>
 		<referenceContainer name="content">
-			<block class="Angel\Fifty\Block\Index\Pending" name="category.products.list" as="product_list" template="Magento_Catalog::product/list.phtml">
-				<container name="category.product.list.additional" as="additional" />
+			<block class="Angel\Fifty\Block\Index\Pending" name="category.products.list" as="product_list" template="Angel_Fifty::fifty/list_pending.phtml" cacheable="false">
 				<block class="Magento\Framework\View\Element\RendererList" name="category.product.type.details.renderers" as="details.renderers">
 					<block class="Magento\Framework\View\Element\Template" name="category.product.type.details.renderers.default" as="default"/>
 				</block>

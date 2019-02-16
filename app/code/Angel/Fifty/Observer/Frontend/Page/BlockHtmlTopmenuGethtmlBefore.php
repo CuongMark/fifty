@@ -39,7 +39,7 @@ class BlockHtmlTopmenuGethtmlBefore implements \Magento\Framework\Event\Observer
         $menu = $observer->getMenu();
         $tree = $menu->getTree();
         $data = [
-            'name'      => __('Fifty'),
+            'name'      => __('50-50 Raffle'),
             'id'        => 'fifty_menu_item',
             'url'       => $this->urlBuilder->getUrl('fifty/index/processing'),
             'is_active' => false
@@ -49,18 +49,9 @@ class BlockHtmlTopmenuGethtmlBefore implements \Magento\Framework\Event\Observer
 
 
         $data = [
-            'name'      => __('Pending'),
+            'name'      => __('Coming soon'),
             'id'        => 'fifty_pending_menu_item',
             'url'       => $this->urlBuilder->getUrl('fifty/index/pending'),
-            'is_active' => false
-        ];
-        $processing = new Node($data, 'id', $tree, $node);
-        $node->addChild($processing);
-
-        $data = [
-            'name'      => __('Processing'),
-            'id'        => 'fifty_processing_menu_item',
-            'url'       => $this->urlBuilder->getUrl('fifty/index/processing'),
             'is_active' => false
         ];
         $processing = new Node($data, 'id', $tree, $node);

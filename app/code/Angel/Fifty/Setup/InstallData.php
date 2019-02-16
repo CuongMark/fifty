@@ -56,7 +56,7 @@ class InstallData implements InstallDataInterface
             'required' => true,
             'visible' => true,
             'position' => 333,
-            'system' => true,
+            'system' => false,
             'backend' => ''
         ]);
         

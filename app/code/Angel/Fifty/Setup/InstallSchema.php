@@ -71,6 +71,14 @@ class InstallSchema implements InstallSchemaInterface
         );
 
         $table_angel_fifty_ticket->addColumn(
+            'price',
+            \Magento\Framework\DB\Ddl\Table::TYPE_DECIMAL,
+            '12,4',
+            ['precision' => 12,'scale' => 4],
+            'Ticket Price'
+        );
+
+        $table_angel_fifty_ticket->addColumn(
             'invoice_item_id',
             \Magento\Framework\DB\Ddl\Table::TYPE_INTEGER,
             null,

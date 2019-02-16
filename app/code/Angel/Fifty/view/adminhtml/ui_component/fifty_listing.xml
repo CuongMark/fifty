@@ -10,9 +10,6 @@
         <item name="js_config" xsi:type="array">
             <item name="provider" xsi:type="string">fifty_listing.fifty_listing_data_source</item>
         </item>
-        <item name="buttons" xsi:type="array">
-            <item name="back" xsi:type="string">Angel\Fifty\Block\Adminhtml\Product\AddNewButton</item>
-        </item>
     </argument>
     <settings>
         <spinner>product_columns</spinner>
@@ -27,7 +24,7 @@
             </storageConfig>
             <updateUrl path="mui/index/render"/>
         </settings>
-        <aclResource>Angel_Fifty::manager</aclResource>
+        <aclResource>Angel_Fifty::fifty</aclResource>
         <dataProvider class="Angel\Fifty\Ui\DataProvider\Product\FiftyDataProvider" name="fifty_listing_data_source">
             <settings>
                 <requestFieldName>id</requestFieldName>
@@ -54,18 +51,6 @@
         <paging name="listing_paging"/>
     </listingToolbar>
     <columns name="product_columns" class="Magento\Catalog\Ui\Component\Listing\Columns">
-        <!--<settings>-->
-            <!--<childDefaults>-->
-                <!--<param name="fieldAction" xsi:type="array">-->
-                    <!--<item name="provider" xsi:type="string">fifty_listing.fifty_listing.product_columns.actions</item>-->
-                    <!--<item name="target" xsi:type="string">applyAction</item>-->
-                    <!--<item name="params" xsi:type="array">-->
-                        <!--<item name="0" xsi:type="string">edit</item>-->
-                        <!--<item name="1" xsi:type="string">${ $.$data.rowIndex }</item>-->
-                    <!--</item>-->
-                <!--</param>-->
-            <!--</childDefaults>-->
-        <!--</settings>-->
         <selectionsColumn name="ids" sortOrder="0">
             <settings>
                 <indexField>entity_id</indexField>
@@ -100,17 +85,36 @@
                 <label translate="true">SKU</label>
             </settings>
         </column>
-        <column name="winner_email" sortOrder="65">
+        <column name="customer_email" sortOrder="65">
             <settings>
                 <filter>text</filter>
                 <label translate="true">Winner</label>
+            </settings>
+        </column>
+        <column name="winning_number" sortOrder="65">
+            <settings>
+                <filter>text</filter>
+                <label translate="true">Winning Number</label>
+            </settings>
+        </column>
+        <column name="total_ticket" sortOrder="65">
+            <settings>
+                <filter>text</filter>
+                <label translate="true">Total Tickets</label>
+            </settings>
+        </column>
+        <column name="total_price" class="Magento\Catalog\Ui\Component\Listing\Columns\Price" sortOrder="71">
+            <settings>
+                <addField>true</addField>
+                <filter>textRange</filter>
+                <label translate="true">Total Price</label>
             </settings>
         </column>
         <column name="winning_price" class="Magento\Catalog\Ui\Component\Listing\Columns\Price" sortOrder="70">
             <settings>
                 <addField>true</addField>
                 <filter>textRange</filter>
-                <label translate="true">Winning Price</label>
+                <label translate="true">Winning Prize</label>
             </settings>
         </column>
         <column name="fifty_start_at" class="Magento\Ui\Component\Listing\Columns\Date" component="Magento_Ui/js/grid/columns/date" sortOrder="50">

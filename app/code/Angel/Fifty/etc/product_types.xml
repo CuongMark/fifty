@@ -1,9 +1,12 @@
 <?xml version="1.0" ?>
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Catalog:etc/product_types.xsd">
-	<type label="Fifty" modelInstance="Angel\Fifty\Model\Product\Type\Fifty" name="fifty">
+	<type label="50-50 Raffle Product" modelInstance="Angel\Fifty\Model\Product\Type\Fifty" name="fifty" isQty="true" indexPriority="30" sortOrder="50">
 		<customAttributes>
 			<attribute name="is_real_product" value="false"/>
 			<attribute name="refundable" value="false"/>
 		</customAttributes>
 	</type>
+	<composableTypes>
+		<type name="fifty" />
+	</composableTypes>
 </config>

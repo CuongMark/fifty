@@ -2,9 +2,9 @@
 /**
  * Angel Fifty Raffles
  * Copyright (C) 2018 Mark Wolf
- * 
+ *
  * This file included in Angel/Fifty is licensed under OSL 3.0
- * 
+ *
  * http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  * Please see LICENSE.txt for the full text of the OSL 3.0 license
  */
@@ -224,5 +224,24 @@ class Ticket extends \Magento\Framework\Api\AbstractExtensibleObject implements 
     public function setComment($comment)
     {
         return $this->setData(self::COMMENT, $comment);
+    }
+
+    /**
+     * Get price
+     * @return string|null
+     */
+    public function getPrice()
+    {
+        return $this->_get(self::PRICE);
+    }
+
+    /**
+     * Set price
+     * @param string $price
+     * @return \Angel\Fifty\Api\Data\TicketInterface
+     */
+    public function setPrice($price)
+    {
+        return $this->setData(self::PRICE, $price);
     }
 }

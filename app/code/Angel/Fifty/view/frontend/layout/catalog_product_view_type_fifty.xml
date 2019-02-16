@@ -1,0 +1,12 @@
+<?xml version="1.0" ?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <head>
+        <css src="Angel_Fifty::css/countdown/timebox.css"/>
+        <css src="Angel_Fifty::css/fifty.css"/>
+    </head>
+    <body>
+        <referenceContainer name="product.info.main">
+            <block class="Angel\Fifty\Block\Product\View" name="raffle.block" as="raffle.block" after="product.info.price" cacheable="false" template="Angel_Fifty::product/view.phtml"/>
+        </referenceContainer>
+    </body>
+</page>

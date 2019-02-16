@@ -11,6 +11,8 @@
 
 namespace Angel\Fifty\Observer\Backend\Controller;
 
+use Angel\Fifty\Model\Product\Type\Fifty;
+
 class ActionCatalogProductSaveEntityAfter implements \Magento\Framework\Event\ObserverInterface
 {
 
@@ -23,6 +25,10 @@ class ActionCatalogProductSaveEntityAfter implements \Magento\Framework\Event\Ob
     public function execute(
         \Magento\Framework\Event\Observer $observer
     ) {
-        //Your observer code
+        /** @var \Magento\Catalog\Model\Product $product */
+        $product = $observer->getEvent()->getProduct();
+        if ($product && $product->getTypeId() == Fifty::TYPE_ID){
+            $product->getTypeInstance()->updateFiftyStatus($product);
+        }
     }
 }

@@ -11,19 +11,45 @@
 
 namespace Angel\Fifty\Cron;
 
+use Angel\Fifty\Model\Product\Attribute\Source\FiftyStatus;
+use Magento\Catalog\Model\Product;
+
 class Fifty
 {
 
+    /**
+     * @var \Angel\RaffleClient\Model\RaffleFactory
+     */
+    protected $raffleFactory;
+
+    /**
+     * @var \Magento\Catalog\Model\ResourceModel\Product\CollectionFactory
+     */
+    protected $productCollectionFactory;
+
+    /**
+     * @var \Psr\Log\LoggerInterface
+     */
     protected $logger;
+
+    /**
+     * @var \Magento\Framework\Stdlib\DateTime\DateTimeFactory
+     */
+    protected $dateTimeFactory;
 
     /**
      * Constructor
      *
      * @param \Psr\Log\LoggerInterface $logger
      */
-    public function __construct(\Psr\Log\LoggerInterface $logger)
-    {
+    public function __construct(
+        \Psr\Log\LoggerInterface $logger,
+        \Magento\Catalog\Model\ResourceModel\Product\CollectionFactory $productCollectionFactory,
+        \Magento\Framework\Stdlib\DateTime\DateTimeFactory $dateTimeFactory
+    ){
         $this->logger = $logger;
+        $this->productCollectionFactory = $productCollectionFactory;
+        $this->dateTimeFactory = $dateTimeFactory;
     }
 
     /**
@@ -33,6 +59,16 @@ class Fifty
      */
     public function execute()
     {
-        $this->logger->addInfo("Cronjob Fifty is executed.");
+        $now = $this->dateTimeFactory->create()->date();
+        /** @var \Magento\Catalog\Model\ResourceModel\Product\Collection $collection */
+        $collection = $this->productCollectionFactory->create()
+            ->addAttributeToFilter('type_id', \Angel\Fifty\Model\Product\Type\Fifty::TYPE_ID)
+            ->addAttributeToFilter('raffle_status', ['nin' => [FiftyStatus::STATUS_FINISHED, FiftyStatus::STATUS_CANCELED]])
+            ->addAttributeToSelect('*');
+        /** @var Product $product */
+        foreach ($collection as $product){
+            $product->getTypeInstance()->updateFiftyStatus($product);
+        }
+//        $this->logger->addInfo('Cronjob update Raffle Status is executed at '.$now);
     }
 }

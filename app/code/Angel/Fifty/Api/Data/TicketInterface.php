@@ -2,9 +2,9 @@
 /**
  * Angel Fifty Raffles
  * Copyright (C) 2018 Mark Wolf
- * 
+ *
  * This file included in Angel/Fifty is licensed under OSL 3.0
- * 
+ *
  * http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  * Please see LICENSE.txt for the full text of the OSL 3.0 license
  */
@@ -14,16 +14,17 @@ namespace Angel\Fifty\Api\Data;
 interface TicketInterface extends \Magento\Framework\Api\ExtensibleDataInterface
 {
 
-    const PRODUCT_ID = 'product_id';
-    const CREDIT_TRANSACTION_ID = 'credit_transaction_id';
     const INVOICE_ITEM_ID = 'invoice_item_id';
     const CREATED_AT = 'created_at';
-    const CUSTOMER_ID = 'customer_id';
-    const STATUS = 'status';
     const TICKET_ID = 'ticket_id';
-    const COMMENT = 'comment';
-    const END = 'end';
+    const CREDIT_TRANSACTION_ID = 'credit_transaction_id';
     const START = 'start';
+    const COMMENT = 'comment';
+    const PRICE = 'price';
+    const STATUS = 'status';
+    const END = 'end';
+    const PRODUCT_ID = 'product_id';
+    const CUSTOMER_ID = 'customer_id';
 
     /**
      * Get ticket_id
@@ -33,20 +34,20 @@ interface TicketInterface extends \Magento\Framework\Api\ExtensibleDataInterface
 
     /**
      * Set ticket_id
-     * @param string $ticketId
+     * @param int $ticketId
      * @return \Angel\Fifty\Api\Data\TicketInterface
      */
     public function setTicketId($ticketId);
 
     /**
      * Get product_id
-     * @return string|null
+     * @return int|null
      */
     public function getProductId();
 
     /**
      * Set product_id
-     * @param string $productId
+     * @param int $productId
      * @return \Angel\Fifty\Api\Data\TicketInterface
      */
     public function setProductId($productId);
@@ -68,65 +69,65 @@ interface TicketInterface extends \Magento\Framework\Api\ExtensibleDataInterface
 
     /**
      * Get customer_id
-     * @return string|null
+     * @return int|null
      */
     public function getCustomerId();
 
     /**
      * Set customer_id
-     * @param string $customerId
+     * @param int $customerId
      * @return \Angel\Fifty\Api\Data\TicketInterface
      */
     public function setCustomerId($customerId);
 
     /**
      * Get start
-     * @return string|null
+     * @return int|null
      */
     public function getStart();
 
     /**
      * Set start
-     * @param string $start
+     * @param int $start
      * @return \Angel\Fifty\Api\Data\TicketInterface
      */
     public function setStart($start);
 
     /**
      * Get end
-     * @return string|null
+     * @return int|null
      */
     public function getEnd();
 
     /**
      * Set end
-     * @param string $end
+     * @param int $end
      * @return \Angel\Fifty\Api\Data\TicketInterface
      */
     public function setEnd($end);
 
     /**
      * Get status
-     * @return string|null
+     * @return int|null
      */
     public function getStatus();
 
     /**
      * Set status
-     * @param string $status
+     * @param int $status
      * @return \Angel\Fifty\Api\Data\TicketInterface
      */
     public function setStatus($status);
 
     /**
      * Get invoice_item_id
-     * @return string|null
+     * @return int|null
      */
     public function getInvoiceItemId();
 
     /**
      * Set invoice_item_id
-     * @param string $invoiceItemId
+     * @param int $invoiceItemId
      * @return \Angel\Fifty\Api\Data\TicketInterface
      */
     public function setInvoiceItemId($invoiceItemId);
@@ -169,4 +170,17 @@ interface TicketInterface extends \Magento\Framework\Api\ExtensibleDataInterface
      * @return \Angel\Fifty\Api\Data\TicketInterface
      */
     public function setComment($comment);
+
+    /**
+     * Get price
+     * @return float|null
+     */
+    public function getPrice();
+
+    /**
+     * Set price
+     * @param float $price
+     * @return \Angel\Fifty\Api\Data\TicketInterface
+     */
+    public function setPrice($price);
 }
