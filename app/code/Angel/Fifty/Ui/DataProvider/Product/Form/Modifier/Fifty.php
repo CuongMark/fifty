@@ -7,7 +7,9 @@
 
 namespace Angel\Fifty\Ui\DataProvider\Product\Form\Modifier;
 
+use Angel\Fifty\Model\Product\Attribute\Source\FiftyStatus;
 use Magento\Catalog\Model\Locator\LocatorInterface;
+use Magento\Catalog\Model\Product;
 use Magento\Catalog\Ui\DataProvider\Product\Form\Modifier\AbstractModifier;
 use Magento\Framework\Stdlib\ArrayManager;
 
@@ -46,16 +48,27 @@ class Fifty extends AbstractModifier
      */
     public function modifyMeta(array $meta)
     {
+        /** @var Product $product */
         $product = $this->locator->getProduct();
         if ($product->getTypeId() != \Angel\Fifty\Model\Product\Type\Fifty::TYPE_ID){
             return $meta;
         }
         $meta = $this->enableTime($meta);
-        $meta = $this->disableSerialField($meta);
+        $meta = $this->disableStatusField($meta);
+        /** @var \Angel\Fifty\Model\Product\Type\Fifty $productTypeInstance */
+        $productTypeInstance = $product->getTypeInstance();
+        if ($product->getFiftyStatus() != FiftyStatus::STATUS_PENDING) {
+            $meta = $this->disableStartAtField($meta);
+            $meta = $this->disableStartPotField($meta);
+        }
+        if ($productTypeInstance->isFinished($product)) {
+            $meta = $this->disableFinishAtField($meta);
+        }
+
         return $meta;
     }
 
-    protected function disableSerialField(array $meta){
+    protected function disableStatusField(array $meta){
         $meta = array_replace_recursive(
             $meta,
             [
@@ -67,7 +80,85 @@ class Fifty extends AbstractModifier
                                     'arguments' => [
                                         'data' => [
                                             'config' => [
-                                                'disabled' => false,
+                                                'disabled' => true,
+                                            ],
+                                        ],
+                                    ]
+                                ]
+                            ]
+                        ]
+                    ]
+                ]
+            ]
+        );
+        return $meta;
+    }
+
+    protected function disableStartPotField(array $meta){
+        $meta = array_replace_recursive(
+            $meta,
+            [
+                'product-details' => [
+                    'children' => [
+                        'container_start_pot' => [
+                            'children' => [
+                                'start_pot' =>[
+                                    'arguments' => [
+                                        'data' => [
+                                            'config' => [
+                                                'disabled' => true,
+                                            ],
+                                        ],
+                                    ]
+                                ]
+                            ]
+                        ]
+                    ]
+                ]
+            ]
+        );
+        return $meta;
+    }
+
+    protected function disableStartAtField(array $meta){
+        $meta = array_replace_recursive(
+            $meta,
+            [
+                'product-details' => [
+                    'children' => [
+                        'container_fifty_start_at' => [
+                            'children' => [
+                                'fifty_start_at' =>[
+                                    'arguments' => [
+                                        'data' => [
+                                            'config' => [
+                                                'disabled' => true,
+                                            ],
+                                        ],
+                                    ]
+                                ]
+                            ]
+                        ]
+                    ]
+                ]
+            ]
+        );
+        return $meta;
+    }
+
+    protected function disableFinishAtField(array $meta){
+        $meta = array_replace_recursive(
+            $meta,
+            [
+                'product-details' => [
+                    'children' => [
+                        'container_fifty_finish_at' => [
+                            'children' => [
+                                'fifty_finish_at' =>[
+                                    'arguments' => [
+                                        'data' => [
+                                            'config' => [
+                                                'disabled' => true,
                                             ],
                                         ],
                                     ]

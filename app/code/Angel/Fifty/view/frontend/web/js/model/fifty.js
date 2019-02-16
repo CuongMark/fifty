@@ -10,6 +10,7 @@ define([
     'use strict';
 
     return {
+        id: ko.observable(''),
         name: ko.observable(''),
         image: ko.observable(''),
         sku: ko.observable(''),
@@ -22,6 +23,9 @@ define([
         status: ko.observable(''),
 
         updateData: function ($data) {
+            if ($data.product_id){
+                this.id($data.product_id);
+            }
             if ($data.name){
                 this.name($data.name);
             }

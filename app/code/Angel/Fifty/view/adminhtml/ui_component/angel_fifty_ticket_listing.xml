@@ -28,6 +28,25 @@
 			<sticky>true</sticky>
 		</settings>
 		<bookmark name="bookmarks"/>
+		<exportButton class="Magento\Ui\Component\ExportButton">
+			<argument name="data" xsi:type="array">
+				<item name="config" xsi:type="array">
+					<item name="displayArea" xsi:type="string">dataGridActions</item>
+					<item name="options" xsi:type="array">
+						<item name="cvs" xsi:type="array">
+							<item name="value" xsi:type="string">csv</item>
+							<item name="label" xsi:type="string" translate="true">CSV</item>
+							<item name="url" xsi:type="string">fifty/ticket/ExportCSV</item>
+						</item>
+						<item name="xml" xsi:type="array">
+							<item name="value" xsi:type="string">xml</item>
+							<item name="label" xsi:type="string" translate="true">Excel XML</item>
+							<item name="url" xsi:type="string">fifty/ticket/ExportCSV</item>
+						</item>
+					</item>
+				</item>
+			</argument>
+		</exportButton>
 		<columnsControls name="columns_controls"/>
 		<filters name="listing_filters"/>
 		<paging name="listing_paging"/>

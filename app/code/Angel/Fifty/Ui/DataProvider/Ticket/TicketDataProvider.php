@@ -7,9 +7,11 @@ namespace Angel\Fifty\Ui\DataProvider\Ticket;
 
 use Angel\Fifty\Model\ResourceModel\Ticket\Collection;
 use Angel\Fifty\Model\TicketManagement;
+use Magento\Framework\Api\Search\SearchCriteriaBuilder;
 use Magento\Framework\App\RequestInterface;
 use Magento\Ui\DataProvider\AbstractDataProvider;
 use Magento\Framework\UrlInterface;
+use Magento\Framework\Api\Search\ReportingInterface;
 
 /**
  * Class ReviewDataProvider
@@ -44,6 +46,21 @@ class TicketDataProvider extends AbstractDataProvider
     protected $ticketManagement;
 
     /**
+     * @var \Magento\Framework\Api\Search\SearchCriteria
+     */
+    protected $searchCriteria;
+
+    /**
+     * @var SearchCriteriaBuilder
+     */
+    protected $searchCriteriaBuilder;
+
+    /**
+     * @var ReportingInterface
+     */
+    protected $reporting;
+
+    /**
      * @param string $name
      * @param string $primaryFieldName
      * @param string $requestFieldName
@@ -60,6 +77,8 @@ class TicketDataProvider extends AbstractDataProvider
         RequestInterface $request,
         UrlInterface $urlBuilder,
         TicketManagement $ticketManagement,
+        ReportingInterface $reporting,
+        SearchCriteriaBuilder $searchCriteriaBuilder,
         array $meta = [],
         array $data = []
     ) {
@@ -68,6 +87,8 @@ class TicketDataProvider extends AbstractDataProvider
         $this->request = $request;
         $this->urlBuilder = $urlBuilder;
         $this->ticketManagement = $ticketManagement;
+        $this->reporting = $reporting;
+        $this->searchCriteriaBuilder = $searchCriteriaBuilder;
     }
 
     /**
@@ -87,11 +108,35 @@ class TicketDataProvider extends AbstractDataProvider
     }
 
     /**
-     * {@inheritdoc}
-     * @since 100.1.0
+     * Returns search criteria
+     *
+     * @return \Magento\Framework\Api\Search\SearchCriteria
+     */
+    public function getSearchCriteria()
+    {
+        if (!$this->searchCriteria) {
+            $this->searchCriteria = $this->searchCriteriaBuilder->create();
+            $this->searchCriteria->setRequestName($this->name);
+        }
+        return $this->searchCriteria;
+    }
+
+    /**
+     * @param \Magento\Framework\Api\Filter $filter
+     * @return mixed|void
      */
     public function addFilter(\Magento\Framework\Api\Filter $filter)
     {
         parent::addFilter($filter);
+    }
+
+    /**
+     * Returns Search result
+     *
+     * @return SearchResultInterface
+     */
+    public function getSearchResult()
+    {
+        return $this->reporting->search($this->getSearchCriteria());
     }
 }

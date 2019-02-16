@@ -10,9 +10,6 @@
         <item name="js_config" xsi:type="array">
             <item name="provider" xsi:type="string">fifty_listing_report.fifty_listing_report_data_source</item>
         </item>
-        <item name="buttons" xsi:type="array">
-            <item name="back" xsi:type="string">Angel\Fifty\Block\Adminhtml\Product\AddNewButton</item>
-        </item>
     </argument>
     <settings>
         <spinner>product_columns</spinner>
@@ -39,6 +36,25 @@
         <settings>
             <sticky>true</sticky>
         </settings>
+        <exportButton class="Magento\Ui\Component\ExportButton">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="displayArea" xsi:type="string">dataGridActions</item>
+                    <item name="options" xsi:type="array">
+                        <item name="cvs" xsi:type="array">
+                            <item name="value" xsi:type="string">csv</item>
+                            <item name="label" xsi:type="string" translate="true">CSV</item>
+                            <item name="url" xsi:type="string">fifty/index/ExportCSV</item>
+                        </item>
+                        <item name="xml" xsi:type="array">
+                            <item name="value" xsi:type="string">xml</item>
+                            <item name="label" xsi:type="string" translate="true">Excel XML</item>
+                            <item name="url" xsi:type="string">fifty/index/ExportCSV</item>
+                        </item>
+                    </item>
+                </item>
+            </argument>
+        </exportButton>
         <bookmark name="bookmarks"/>
         <columnsControls name="columns_controls"/>
         <filters name="listing_filters">
@@ -113,11 +129,18 @@
                 <label translate="true">Total Price</label>
             </settings>
         </column>
-        <column name="winning_price" class="Magento\Catalog\Ui\Component\Listing\Columns\Price" sortOrder="70">
+        <column name="winning_prize" class="Magento\Catalog\Ui\Component\Listing\Columns\Price" sortOrder="70">
             <settings>
                 <addField>true</addField>
                 <filter>textRange</filter>
                 <label translate="true">Winning Prize</label>
+            </settings>
+        </column>
+        <column name="start_pot" class="Magento\Catalog\Ui\Component\Listing\Columns\Price" sortOrder="71">
+            <settings>
+                <addField>true</addField>
+                <filter>textRange</filter>
+                <label translate="true">Start Pot</label>
             </settings>
         </column>
         <column name="fifty_start_at" class="Magento\Ui\Component\Listing\Columns\Date" component="Magento_Ui/js/grid/columns/date" sortOrder="50">

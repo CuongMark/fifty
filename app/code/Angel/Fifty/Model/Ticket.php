@@ -72,44 +72,6 @@ class Ticket extends \Magento\Framework\Model\AbstractModel
 
     /**
      * @param Product $product
-     * @param Customer $customer
-     * @param $qty
-     * @return TicketInterface
-     * @throws \Exception
-     */
-    public function createTicket($product, $customer, $qty){
-        if ($product->getTypeId() != Fifty::TYPE_ID) {
-            throw new \Exception('The product is not 50/50 raffle.');
-        } elseif ($product->getData('fifty_status') != FiftyStatus::STATUS_PROCESSING){
-            throw new \Exception('The 50/50 raffle is not processing.');
-        } elseif (!$customer) {
-            throw new \Exception('Customer does not exist.');
-        } else {
-            $lastTicketNumber = $this->getLastTicketNumberByProduct($product);
-
-            $ticketData = [
-                'product_id' => $product->getId(),
-                'customer_id' => $customer->getId(),
-                'start' => $lastTicketNumber + 1,
-                'end' => $lastTicketNumber + $qty,
-                'status' => Status::STATUS_PENDING
-            ];
-
-            $this->_eventManager->dispatch('angel_fifty_create_new_ticket', ['ticket_data' => $ticketData]);
-
-            $ticketDataObject = $this->ticketDataFactory->create();
-            $this->dataObjectHelper->populateWithArray(
-                $ticketDataObject,
-                $ticketData,
-                TicketInterface::class
-            );
-
-            return $ticketDataObject;
-        }
-    }
-
-    /**
-     * @param Product $product
      * @return \Magento\Framework\DataObject
      */
     public function getLastTicketByProduct($product){

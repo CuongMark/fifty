@@ -27,6 +27,7 @@ define([
         isSuccess: ticket.purchaseSuccess,
         message: ticket.purchaseMessage,
         productName: fifty.name,
+        productId: fifty.id,
         productImage: fifty.image,
         productSku: fifty.sku,
         productPrice : fifty.price,
@@ -60,6 +61,9 @@ define([
             });
             this.currentPotText = ko.computed(function(){
                 var currentPotFormated = priceUtils.formatPrice(self.currentPot(), self.priceFormat);
+                if(self.currentPot() && self.productId() && $('#current_pot' + self.productId() + ' .price').length) {
+                    $('#current_pot' + self.productId() + ' .price')[0].innerHTML = currentPotFormated;
+                }
                 return $t('Current Pot: ') + currentPotFormated;
             });
 

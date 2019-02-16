@@ -34,6 +34,24 @@ class FiftyStatus extends \Magento\Eav\Model\Entity\Attribute\Source\AbstractSou
         return $this->_options;
     }
 
+    public static function OptionsArray(){
+        return [
+            ['value' => self::STATUS_PENDING, 'label' => __('Pending')],
+            ['value' => self::STATUS_PROCESSING, 'label' => __('Processing')],
+            ['value' => self::STATUS_FINISHED, 'label' => __('Finished')],
+            ['value' => self::STATUS_CANCELED, 'label' => __('Canceled')]
+        ];
+    }
+
+    public static function Options(){
+        return [
+            [self::STATUS_PENDING => __('Pending')],
+            [self::STATUS_PROCESSING => __('Processing')],
+            [self::STATUS_FINISHED => __('Finished')],
+            [self::STATUS_CANCELED => __('Canceled')]
+        ];
+    }
+
     /**
      * @return array
      */

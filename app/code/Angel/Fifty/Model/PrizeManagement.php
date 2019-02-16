@@ -37,7 +37,7 @@ class PrizeManagement {
         $collection->getSelect()->joinLeft(
             ['prize' => $collection->getTable('angel_fifty_prize')],
             'e.entity_id = prize.product_id',
-            ['winning_number' => 'prize.winning_number', 'winning_price' => 'prize.winning_prize']
+            ['winning_number' => 'prize.winning_number', 'winning_prize' => 'prize.winning_prize']
         );
         return $collection;
     }

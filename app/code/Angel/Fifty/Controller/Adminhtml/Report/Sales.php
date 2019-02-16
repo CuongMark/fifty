@@ -37,6 +37,15 @@ class Sales extends \Magento\Backend\App\Action
      */
     public function execute()
     {
-        return $this->resultPageFactory->create();
+        $resultPage = $this->resultPageFactory->create();
+        $resultPage->addBreadcrumb(__('50/50 Raffles'), __('Raffle'));
+        $resultPage->getConfig()->getTitle()->prepend(__('50/50 Raffles'));
+
+        return $resultPage;
+    }
+
+    protected function _isAllowed()
+    {
+        return $this->_authorization->isAllowed('Angel_Fifty::report_sale');
     }
 }

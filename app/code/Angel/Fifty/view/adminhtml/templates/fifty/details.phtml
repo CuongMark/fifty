@@ -1,0 +1,47 @@
+
+<?php
+    /** @var \Angel\Fifty\Block\Adminhtml\Fifty\Details $block */
+    $product = $block->getProduct();
+?>
+<?php if ($product): ?>
+<ul class="fifty-detail">
+    <li>
+        <strong><?= __('Product Name:') ?></strong>
+        <span><?= $product->getName() ?></span>
+    </li>
+    <li>
+        <strong><?= __('Total Ticket:') ?></strong>
+        <span><?= $block->getTotalTicket() ?></span>
+    </li>
+    <li>
+        <strong><?= __('Start Pot:') ?></strong>
+        <span><?= $product->getStartPot() ?></span>
+    </li>
+    <li>
+        <strong><?= __('Total Sales:') ?></strong>
+        <span><?= $block->getTotalSale() ?></span>
+    </li>
+    <?php if ($block->hasWinningTicket()): ?>
+    <li>
+        <strong><?= __('Winner:') ?></strong>
+        <span><a href="<?= $block->getUrl('customer/index/edit', ['id' => $block->getWinningCustomer()->getId()]) ?>" target="_blank"><?= $block->getWinningCustomer()->getName() ?></a></span>
+    </li>
+    <li>
+        <strong><?= __('Winning Number:') ?></strong>
+        <span><?= $block->getPrize()->getWinningNumber() ?></span>
+    </li>
+    <li>
+        <strong><?= __('Winning Prize:') ?></strong>
+        <span><?= $block->getWiningPrizeFormated() ?></span>
+    </li>
+    <li>
+        <strong><?= __('Finished At:') ?></strong>
+        <span><?= $block->formatDate($block->getPrize()->getCreatedAt(), \IntlDateFormatter::MEDIUM ). ' ' . $block->formatTime($block->getPrize()->getCreatedAt(), \IntlDateFormatter::MEDIUM) ?></span>
+    </li>
+    <?php endif; ?>
+    <li>
+        <strong><?= __('Status:') ?></strong>
+        <span><?= $block->getStatus() ?></span>
+    </li>
+</ul>
+<?php endif; ?>

@@ -22,6 +22,7 @@ use Angel\Fifty\Model\TicketFactory;
 use Angel\Fifty\Model\Ticket\Status;
 use Angel\Fifty\Model\TicketManagement;
 use Angel\Fifty\Model\TicketRepository;
+use Angel\Fifty\Service\EmailFactory;
 use Magento\Catalog\Api\ProductRepositoryInterface;
 use Magento\Catalog\Model\Product;
 use Magento\Customer\Model\Customer;
@@ -58,6 +59,16 @@ class Fifty extends \Magento\Catalog\Model\Product\Type\Virtual
      */
     protected $_prizeRespository;
 
+    /**
+     * @var EmailFactory
+     */
+    protected $_emailServiceFactory;
+
+    /**
+     * @var Prize
+     */
+    protected $prize;
+
     public function __construct(
         \Magento\Catalog\Model\Product\Option $catalogProductOption,
         \Magento\Eav\Model\Config $eavConfig,
@@ -74,6 +85,7 @@ class Fifty extends \Magento\Catalog\Model\Product\Type\Virtual
         TicketManagement $ticketManagement,
         PrizeFactory $prizeFactory,
         PrizeRepositoryInterface $prizeRepository,
+        EmailFactory $emailServiceFactory,
         \Magento\Framework\Serialize\Serializer\Json $serializer = null
     ){
         parent::__construct($catalogProductOption, $eavConfig, $catalogProductType, $eventManager, $fileStorageDb, $filesystem, $coreRegistry, $logger, $productRepository, $serializer);
@@ -83,6 +95,7 @@ class Fifty extends \Magento\Catalog\Model\Product\Type\Virtual
         $this->_ticketManagement = $ticketManagement;
         $this->_prizeFactory = $prizeFactory;
         $this->_prizeRespository = $prizeRepository;
+        $this->_emailServiceFactory = $emailServiceFactory;
     }
 
     const TYPE_ID = 'fifty';
@@ -102,24 +115,33 @@ class Fifty extends \Magento\Catalog\Model\Product\Type\Virtual
         } elseif (!$customer->getId()) {
             throw new \Exception('Customer does not exist.');
         } else {
-            $lastTicketNumber = $this->getLastTicketNumberByProduct($product);
+            try {
+                $lastTicketNumber = $this->getLastTicketNumberByProduct($product);
 
-            $ticketData = [
-                'product_id' => $product->getId(),
-                'customer_id' => $customer->getId(),
-                'start' => $lastTicketNumber + 1,
-                'end' => $lastTicketNumber + $qty,
-                'price' => $qty * $product->getPrice(),
-                'product_name' => $product->getName(),
-                'status' => Status::STATUS_PENDING
-            ];
+                $ticketData = [
+                    'product_id' => $product->getId(),
+                    'customer_id' => $customer->getId(),
+                    'start' => $lastTicketNumber + 1,
+                    'end' => $lastTicketNumber + $qty,
+                    'price' => $qty * $product->getPrice(),
+                    'product_name' => $product->getName(),
+                    'status' => Status::STATUS_PENDING
+                ];
 
-            /** @var Ticket $ticket */
-            $ticket = $this->_ticketFactory->create()->setData($ticketData);
+                /** @var Ticket $ticket */
+                $ticket = $this->_ticketFactory->create()->setData($ticketData);
 
-            $this->_eventManager->dispatch('angel_fifty_create_new_ticket', ['ticket' => $ticket]);
+                $this->_eventManager->dispatch('angel_fifty_create_new_ticket', ['ticket' => $ticket]);
 
-            $ticketDataObject = $this->_ticketRespository->save($ticket->getDataModel());
+                $ticketDataObject = $this->_ticketRespository->save($ticket->getDataModel());
+
+                $ticket->setCustomerEmail($customer->getEmail());
+                /** @var Email $emailService */
+                $emailService = $this->_emailServiceFactory->create();
+                $emailService->sendNewTicketEmail($product, $ticket);
+            } catch (\Exception $e){
+                throw new \Exception('Something went wrong.');
+            }
 
             return $ticketDataObject;
         }
@@ -133,12 +155,16 @@ class Fifty extends \Magento\Catalog\Model\Product\Type\Virtual
         if ($this->isFinished($product) || $this->isCanceled($product)){
             return $product;
         } elseif ($this->isPending($product) && $this->getTimeToStart($product) <= 0){
-            $product->setFiftyStatus(FiftyStatus::STATUS_PROCESSING);
-            $this->productRepository->save($product);
+            if(!$product->isObjectNew()) {
+                $product->setFiftyStatus(FiftyStatus::STATUS_PROCESSING);
+                $this->productRepository->save($product);
+            }
             return $product;
         } elseif ($this->isPending($product) && $this->getTimeLeft($product) <= 0){
-            $product->setFiftyStatus(FiftyStatus::STATUS_CANCELED);
-            $this->productRepository->save($product);
+            if(!$product->isObjectNew()) {
+                $product->setFiftyStatus(FiftyStatus::STATUS_CANCELED);
+                $this->productRepository->save($product);
+            }
             return $product;
         } elseif ($this->isProcessing($product) && $this->getTimeLeft($product) <= 0){
             if (!$this->hasWinningTickets($product) && $this->getTicketCollection($product)->getSize()){
@@ -157,6 +183,7 @@ class Fifty extends \Magento\Catalog\Model\Product\Type\Virtual
                         ->setProductId($product->getId());
                     $this->_prizeRespository->save($prize->getDataModel());
 
+                    $sentEmails = [];
                     /**
                      * update winning ticket status
                      */
@@ -174,6 +201,14 @@ class Fifty extends \Magento\Catalog\Model\Product\Type\Virtual
                     }
 
                     /**
+                     * send meail to winner
+                     */
+                    /** @var Email $emailService */
+                    $emailService = $this->_emailServiceFactory->create();
+                    $customerEmail = $emailService->sendWinningEmail($product, $prize, $winningTicket);
+                    $sentEmails[] = $customerEmail;
+
+                    /**
                      * update lose ticket status
                      */
                     $loseTickets = $this->getTicketCollection($product)
@@ -181,11 +216,22 @@ class Fifty extends \Magento\Catalog\Model\Product\Type\Virtual
                         ->setCurPage(1)
                         ->setPageSize(1)
                         ->addFieldToFilter('start', ['gt' => $winningNumber])
-                        ->addFieldToFilter('end', ['lt' => $winningNumber])
-                        ->getFirstItem();
+                        ->addFieldToFilter('end', ['lt' => $winningNumber]);
+                    $this->_ticketManagement->joinCustomerEmail($loseTickets);
+
                     foreach ($loseTickets as $_ticket) {
                         $_ticket->setStatus(Status::STATUS_LOSE);
                         $this->_ticketRespository->save($_ticket->getDataModel());
+                    }
+
+                    /**
+                     * send email to other
+                     */
+                    foreach ($loseTickets as $_ticket) {
+                        $customerEmail = $_ticket->getCustomerEmail();
+                        if (!in_array($customerEmail, $sentEmails)) {
+                            $emailService->sendFinishedEmail($product, $prize, $customerEmail);
+                        }
                     }
 
                     /**
@@ -196,6 +242,8 @@ class Fifty extends \Magento\Catalog\Model\Product\Type\Virtual
                 } catch (\Exception $e){
                     $this->_logger->error($e->getMessage());
                 }
+            } else {
+                return $product;
             }
         } else {
             return $product;
@@ -215,16 +263,41 @@ class Fifty extends \Magento\Catalog\Model\Product\Type\Virtual
 
     /**
      * @param Product $product
-     * @return Collection
+     * @return \Magento\Framework\DataObject
      */
     public function getWinningTickets($product){
         $collection = $this->getTicketCollection($product);
         $collection->addFieldToFilter('status', Status::STATUS_WINNING);
         $collection->setPageSize(1)
             ->setCurPage(1)
-            ->setOrder('ticket_id', 'DESC')
-            ->getFirstItem();
-        return $collection;
+            ->setOrder('ticket_id', 'DESC');
+        return $collection->getFirstItem();
+    }
+
+    /**
+     * @param $product
+     * @return string
+     */
+    public function getStatusLabel($product){
+        $optionsArray = FiftyStatus::OptionsArray();
+        return $optionsArray[$product->getFiftyStatus()]['label']->getText();
+    }
+
+    /**
+     * @param Product $product
+     * @return Prize|\Magento\Framework\DataObject
+     */
+    public function getPrize($product){
+        if (!$this->prize) {
+            /** @var Prize $prize */
+            $prize = $this->_prizeFactory->create();
+            $collection = $prize->getCollection()->addFieldToFilter('product_id', $product->getId())
+                ->setPageSize(1)
+                ->setCurPage(1);
+            $prize = $collection->getFirstItem();
+            $this->prize = $prize;
+        }
+        return $this->prize;
     }
 
     /**
@@ -247,9 +320,17 @@ class Fifty extends \Magento\Catalog\Model\Product\Type\Virtual
      */
     public function getCurrentPot($product){
         if (!$product->hasData('total_ticket_price')){
-            $product->setTotalTicketPrice((float)$this->_ticketManagement->getTotalTicketPrice($product));
+            $product->setTotalTicketPrice((float)$this->getTotalSales($product));
         }
         return (float)$product->getStartPot() + $product->getTotalTicketPrice();
+    }
+
+    /**
+     * @param Product $product
+     * @return float
+     */
+    public function getTotalSales($product){
+        return (float)$this->_ticketManagement->getTotalTicketPrice($product);
     }
 
     /**

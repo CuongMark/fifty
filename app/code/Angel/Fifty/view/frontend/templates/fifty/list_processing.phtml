@@ -73,7 +73,7 @@ $_helper = $this->helper('Magento\Catalog\Helper\Output');
                             <?php $finish_at = new \DateTime($_product->getFiftyFinishAt()); ?>
                             <?php $currentPot = $_product->getTypeInstance()->getCurrentPot($_product); ?>
                             <div><span data-role="angel-countdown" data-time-left="<?= $finish_at->getTimestamp() - $date->getTimestamp() ?>"></span></div>
-                            <div><span><?= __('Current Pot: ') ?><?= $block->getPriceCurrency()->format($currentPot) ?></span></div>
+                            <div id="current_pot<?= $_product->getId() ?>"><span><?= __('Current Pot: ') ?><?= $block->getPriceCurrency()->format($currentPot) ?></span></div>
 
                             <?= $block->getReviewsSummaryHtml($_product, $templateType) ?>
                             <?= /* @escapeNotVerified */ $block->getProductPrice($_product) ?>

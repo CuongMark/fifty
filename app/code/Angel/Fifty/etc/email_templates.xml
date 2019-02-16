@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<!--
+  ~ Magestore
+  ~
+  ~ NOTICE OF LICENSE
+  ~
+  ~ This source file is subject to the Magestore.com license that is
+  ~ available through the world-wide-web at this URL:
+  ~ http://www.magestore.com/license-agreement.html
+  ~
+  ~ DISCLAIMER
+  ~
+  ~ Do not edit or add to this file if you wish to upgrade this extension to newer
+  ~ version in the future.
+  ~
+  ~ @category    Magestore
+  ~ @package     Magestore_Customercredit
+  ~ @copyright   Copyright (c) 2017 Magestore (http://www.magestore.com/)
+  ~ @license     http://www.magestore.com/license-agreement.html
+  ~
+  -->
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Email:etc/email_templates.xsd">
+    <template id="angel_fifty_purchase_ticket" label="Purchase 50/50 raffle ticket" file="purchase-ticket.html" type="html" module="Angel_Fifty" area="frontend"/>
+    <template id="angel_fifty_winning" label="Notify wining 50/50 raffle to customer" file="winning.html" type="html" module="Angel_Fifty" area="frontend"/>
+    <template id="angel_fifty_losing" label="Notify finished 50/50 raffle to customer" file="losing.html" type="html" module="Angel_Fifty" area="frontend"/>
+</config>

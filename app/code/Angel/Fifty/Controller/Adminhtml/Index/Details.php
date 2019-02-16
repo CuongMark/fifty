@@ -37,6 +37,18 @@ class Details extends \Magento\Backend\App\Action
      */
     public function execute()
     {
-        return $this->resultPageFactory->create();
+        if($this->getRequest()->getQuery('ajax')){
+            $this->_forward('grid');
+            return;
+        }
+        $resultPage = $this->resultPageFactory->create();
+        $resultPage->getConfig()->getTitle()->prepend(__('50/50 Raffle Detail'));
+
+        return $resultPage;
+    }
+
+    protected function _isAllowed()
+    {
+        return $this->_authorization->isAllowed('Angel_Fifty::report_sales');
     }
 }

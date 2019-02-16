@@ -26,4 +26,28 @@ class Index extends \Magento\Backend\Block\Template
     ) {
         parent::__construct($context, $data);
     }
+
+    /**
+     * Index action
+     *
+     * @return \Magento\Backend\Model\View\Result\Page
+     */
+    public function execute()
+    {
+        if($this->getRequest()->getQuery('ajax')){
+            $this->_forward('grid');
+            return;
+        }
+        $resultPage = $this->resultPageFactory->create();
+        $resultPage->setActiveMenu('Magestore_Customercredit::customercredit');
+        $resultPage->addBreadcrumb(__('Manage Customers Using Credit'), __('Manage Customers Using Credit'));
+        $resultPage->getConfig()->getTitle()->prepend(__('Manage Customers Using Credit'));
+
+        return $resultPage;
+    }
+
+    protected function _isAllowed()
+    {
+        return $this->_authorization->isAllowed('Magestore_Customercredit::customercredit');
+    }
 }

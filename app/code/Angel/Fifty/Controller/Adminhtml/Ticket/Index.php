@@ -34,17 +34,21 @@ class Index extends \Magento\Backend\App\Action
     }
 
     /**
-     * Index action
+     * Execute view action
      *
      * @return \Magento\Framework\Controller\ResultInterface
      */
     public function execute()
     {
-        return $this->resultPageFactory->create();
+        $resultPage = $this->resultPageFactory->create();
+        $resultPage->addBreadcrumb(__('50/50 Raffles'), __('Tickets'));
+        $resultPage->getConfig()->getTitle()->prepend(__('Tickets'));
 
-        
-            $resultPage = $this->resultPageFactory->create();
-            $resultPage->getConfig()->getTitle()->prepend(__("Ticket"));
-            return $resultPage;
+        return $resultPage;
+    }
+
+    protected function _isAllowed()
+    {
+        return $this->_authorization->isAllowed('Angel_Fifty::Ticket');
     }
 }
