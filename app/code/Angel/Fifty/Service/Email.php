@@ -169,19 +169,18 @@ class Email
      */
     public function sendWinningEmail($product, $prize, $ticket){
         try {
-            if (!$ticket->getCustomerEmail()) {
-                $customer = $this->customerRepository->getById($ticket->getCustomerId());
-                $ticket->setCustomerEmail($customer->getEmail());
-            }
+            $customer = $this->customerRepository->getById($ticket->getCustomerId());
+            $ticket->setCustomerEmail($customer->getEmail());
             $this->setReceivers($ticket->getCustomerEmail());
             $this->setEmailTemplate(self::EMAIL_TEMPLATE_NEW_TICKET);
             $templateVars = [
+                'customer' => $customer,
                 'product_name' => $product->getName(),
                 'winning_number' => $prize->getWinningNumber(),
                 'winnint_prize' => $this->priceCurrency->format($prize->getWinningPrize()),
                 'start' => $ticket->getStart(),
                 'end' => $ticket->getEnd(),
-                'price' => $this->priceCurrency->format($ticket->getPrice())
+                'price' => $this->priceCurrency->format($ticket->getPrice(), false, 0)
             ];
             $this->setTemplateVars($templateVars);
             //send email
@@ -195,16 +194,19 @@ class Email
     /**
      * @param Product $product
      * @param Prize $prize
+     * @param Ticket $ticket
      * @param string $email
      */
-    public function sendFinishedEmail($product, $prize, $email){
+    public function sendFinishedEmail($product, $prize, $ticket, $email){
         try {
+            $customer = $this->customerRepository->getById($ticket->getCustomerId());
             $this->setReceivers($email);
             $this->setEmailTemplate(self::EMAIL_TEMPLATE_NEW_TICKET);
             $templateVars = [
+                'customer' => $customer,
                 'product_name' => $product->getName(),
                 'winning_number' => $prize->getWinningNumber(),
-                'winnint_prize' => $this->priceCurrency->format($prize->getWinningPrize())
+                'winnint_prize' => $this->priceCurrency->format($prize->getWinningPrize(), false, 0)
             ];
             $this->setTemplateVars($templateVars);
             //send email
@@ -220,17 +222,17 @@ class Email
      */
     public function sendNewTicketEmail($product, $ticket){
         try {
-            if (!$ticket->getCustomerEmail()) {
-                $customer = $this->customerRepository->getById($ticket->getCustomerId());
-                $ticket->setCustomerEmail($customer->getEmail());
-            }
+            $customer = $this->customerRepository->getById($ticket->getCustomerId());
+            $ticket->setCustomerEmail($customer->getEmail());
             $this->setReceivers($ticket->getCustomerEmail());
             $this->setEmailTemplate(self::EMAIL_TEMPLATE_NEW_TICKET);
             $templateVars = [
+                'customer' => $customer,
                 'product_name' => $product->getName(),
                 'start' => $ticket->getStart(),
                 'end' => $ticket->getEnd(),
-                'price' => $this->priceCurrency->format($ticket->getPrice())
+                'only' => $ticket->getStart() == $ticket->getEnd(),
+                'price' => $this->priceCurrency->format($ticket->getPrice(), false, 0)
             ];
             $this->setTemplateVars($templateVars);
             //send email

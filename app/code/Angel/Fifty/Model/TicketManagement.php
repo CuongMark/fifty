@@ -105,6 +105,18 @@ class TicketManagement {
      * @param Collection $collection
      * @return Collection
      */
+    public function joinPrize($collection){
+        $collection->getSelect()->joinLeft(['prize' => $collection->getTable('angel_fifty_prize')],
+            'prize.product_id = main_table.product_id AND main_table.status = '.Status::STATUS_WINNING,
+            ['winning_number' => 'prize.winning_number' , 'winning_prize' => 'prize.winning_prize']
+        );
+        return $collection;
+    }
+
+    /**
+     * @param Collection $collection
+     * @return Collection
+     */
     public function joinCustomerEmail($collection){
         $collection->getSelect()->joinLeft(['customer' => $collection->getTable('customer_entity')],
             'customer.entity_id = main_table.customer_id',

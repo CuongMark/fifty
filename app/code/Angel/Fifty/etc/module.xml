@@ -4,6 +4,7 @@
 		<sequence>
 			<module name="Magento_Customer"/>
 			<module name="Magento_Catalog"/>
+			<module name="Magestore_Customercredit"/>
 		</sequence>
 	</module>
 </config>

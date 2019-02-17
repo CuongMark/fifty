@@ -39,7 +39,7 @@ class Processing extends \Magento\Framework\App\Action\Action
     {
         $page = $this->resultPageFactory->create();
         $page->getConfig()->addBodyClass('page-products');
-        $page->getConfig()->getTitle()->prepend(__('50-50 Pending Raffle Products'));
+        $page->getConfig()->getTitle()->prepend(__('50-50 Processing Raffle Products'));
         return $page;
     }
 }

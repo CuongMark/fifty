@@ -8,5 +8,10 @@
         <referenceContainer name="product.info.main">
             <block class="Angel\Fifty\Block\Product\View" name="raffle.block" as="raffle.block" after="product.info.price" cacheable="false" template="Angel_Fifty::product/view.phtml"/>
         </referenceContainer>
+        <referenceBlock name="product.info.addtocart">
+            <action method="setTemplate">
+                <argument name="template" xsi:type="string">Angel_Fifty::product/addtocart.phtml</argument>
+            </action>
+        </referenceBlock>
     </body>
 </page>

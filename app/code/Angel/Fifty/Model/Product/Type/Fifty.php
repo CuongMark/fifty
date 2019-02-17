@@ -22,6 +22,7 @@ use Angel\Fifty\Model\TicketFactory;
 use Angel\Fifty\Model\Ticket\Status;
 use Angel\Fifty\Model\TicketManagement;
 use Angel\Fifty\Model\TicketRepository;
+use Angel\Fifty\Service\Email;
 use Angel\Fifty\Service\EmailFactory;
 use Magento\Catalog\Api\ProductRepositoryInterface;
 use Magento\Catalog\Model\Product;
@@ -215,8 +216,10 @@ class Fifty extends \Magento\Catalog\Model\Product\Type\Virtual
                         ->addFieldToFilter('status', Status::STATUS_PENDING)
                         ->setCurPage(1)
                         ->setPageSize(1)
-                        ->addFieldToFilter('start', ['gt' => $winningNumber])
-                        ->addFieldToFilter('end', ['lt' => $winningNumber]);
+                        ->addFieldToFilter(array(
+                            array('attribute'=>'start', 'gt'=>$winningNumber),
+                            array('attribute'=>'end', 'lt'=>$winningNumber),
+                        ));
                     $this->_ticketManagement->joinCustomerEmail($loseTickets);
 
                     foreach ($loseTickets as $_ticket) {
@@ -230,7 +233,7 @@ class Fifty extends \Magento\Catalog\Model\Product\Type\Virtual
                     foreach ($loseTickets as $_ticket) {
                         $customerEmail = $_ticket->getCustomerEmail();
                         if (!in_array($customerEmail, $sentEmails)) {
-                            $emailService->sendFinishedEmail($product, $prize, $customerEmail);
+                            $emailService->sendFinishedEmail($product, $prize, $_ticket, $customerEmail);
                         }
                     }
 

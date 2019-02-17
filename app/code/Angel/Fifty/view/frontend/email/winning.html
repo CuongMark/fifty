@@ -4,21 +4,21 @@
  * See COPYING.txt for license details.
  */
 -->
-<!--@subject {{trans "Your %store_name password has been changed" store_name=$store.getFrontendName()}} @-->
+<!--@subject {{trans "You won a 50/50 raffle at %store_name" store_name=$store.getFrontendName()}} @-->
 <!--@vars {
 "var customer.name":"Customer Name"
 } @-->
 {{template config_path="design/email/header_template"}}
 
-<p class="greeting">{{trans "Hello,"}}</p>
+<p class="greeting">{{trans "Hello, %customer_name" customer_name=$customer.getFirstname()}}</p>
 <br>
 
 <p>
-    {{trans "You won the 50/50 raffle %product_name at %store_name." product_name=$product_name, store_name=$store.getFrontendName()}}<br>
+    {{trans "You won the 50/50 raffle %product_name at %store_name." product_name=$product_name store_name=$store.getFrontendName()}}<br>
     {{trans "The winning number is: %winning_number" winning_number=$winning_number }}<br>
     {{trans "The winning prize is: %winning_prize" winning_prize=$winning_prize }}<br>
-    {{trans "Ticket number is from %start to %end." start=$start, end=$end}}<br>
-    {{trans "Ticket price is: $price." price=$price}}<br>
+    {{trans "Ticket number is from %start to %end." start=$start end=$end}}<br>
+    {{trans "Ticket price is: %price." price=$price}}<br>
 </p>
 <br>
 

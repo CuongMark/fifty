@@ -93,6 +93,7 @@ class Lists extends \Magento\Framework\View\Element\Template
             $ticketCollection->addFieldToFilter('customer_id', $this->_customerSession->getCustomerId());
             $ticketCollection->addFieldToFilter('main_table.status', ['neq' => \Angel\Fifty\Model\Ticket\Status::STATUS_CANCELED]);
             $this->ticketManagement->joinProductName($ticketCollection);
+            $this->ticketManagement->joinPrize($ticketCollection);
             $this->ticketCollection = $ticketCollection;
         }
         return $this->ticketCollection;
