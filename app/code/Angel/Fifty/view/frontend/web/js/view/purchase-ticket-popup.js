@@ -48,6 +48,12 @@ define([
         initialize: function () {
             var self = this;
             this._super();
+            if (typeof this.currentFiftyPrice != "undefined"){
+                this.productPrice(this.currentFiftyPrice);
+            }
+            if (typeof this.currentPotPrice != "undefined"){
+                this.currentPot(this.currentPotPrice);
+            }
             this.customer = customerData.get('customer');
             this.suggestCreditBalance = ko.computed(function(){
                 var balance = priceUtils.formatPrice(self.customer().creditBalance, self.priceFormat);
@@ -66,30 +72,10 @@ define([
                 }
                 return $t('Current Pot: ') + currentPotFormated;
             });
-
-            // ko.computed(function(){
-            //     self.timeLeft = fifty.timeLeft;
-            // });
-            //
-            // setInterval(function() {
-            //     self.updateCountdown(--self.timeLeft);
-            // }, 1000);
-
             url.setBaseUrl(window.authenticationPopup.baseUrl);
             loginAction.registerPurchaseCallback(function () {
                 self.isLoading(false);
             });
-        },
-
-        updateCountdown: function(time){
-            var days = Math.floor(time/86400);
-            var hours = Math.floor((time - 86400*days)/3600);
-            var minutes = Math.floor((time - 86400*days - 3600*hours)/60);
-            var seconds = time%60;
-            this.day(days);
-            this.hour(hours);
-            this.minute(minutes);
-            this.second(seconds);
         },
 
         /** Init popup login window */

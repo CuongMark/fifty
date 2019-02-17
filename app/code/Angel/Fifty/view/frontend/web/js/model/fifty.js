@@ -14,11 +14,11 @@ define([
         name: ko.observable(''),
         image: ko.observable(''),
         sku: ko.observable(''),
-        price: ko.observable(''),
+        price: ko.observable(0),
         startPot: ko.observable(''),
         start_at: ko.observable(''),
         finish_at: ko.observable(''),
-        currentPot: ko.observable(''),
+        currentPot: ko.observable(0),
         winning_number: ko.observable(''),
         status: ko.observable(''),
 

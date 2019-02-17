@@ -44,6 +44,6 @@ class View extends \Magento\Catalog\Block\Product\View
     }
 
     public function getCurrentPot(){
-        return $this->getProduct()->getTypeInstance()->getCurrentPot($this->getProduct());
+        return $this->priceCurrency->format($this->getProduct()->getTypeInstance()->getCurrentPot($this->getProduct()));
     }
 }

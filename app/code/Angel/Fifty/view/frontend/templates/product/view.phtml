@@ -8,11 +8,10 @@
     <div><?= __('Start Pot: %1', $block->getCurrentPot()) ?> </div>
 <?php elseif ($block->isProcessing()): ?>
     <div><span id="fity_countdown" data-mage-init='{"angel/countdown": {"time_left":<?php echo $block->getTimeLeft() ?>}}'></span></div>
-    <div><?= __('Current Pot: %1', $block->getCurrentPot()) ?> </div>
+    <div id="current_pot<?= $block->getProduct()->getId() ?>"><?= __('Current Pot: %1', $block->getCurrentPot()) ?> </div>
 <?php elseif ($block->isFinished()): ?>
-    <div>
-
-    </div>
+    <div id="winning_number"><?= __('Winning Number: %1', $block->getWinningNumber()) ?> </div>
+    <div id="winning_prize"><?= __('Winning Prize: %1', $block->getWinningPrize()) ?> </div>
 <?php endif; ?>
 <script type="text/x-magento-init">
     {

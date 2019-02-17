@@ -41,7 +41,7 @@ define([
                     });
                     ticket.purchaseMessage(response.message);
                     ticket.purchaseSuccess(response.success);
-                    fifty.currentPot(fifty.currentPot() + Number.parseFloat(response.data.price));
+                    fifty.currentPot(Number.parseFloat(fifty.currentPot()) + Number.parseFloat(response.data.price));
                     fifty.id(response.data.product_id)
 
                     customerData.invalidate(['customer']);

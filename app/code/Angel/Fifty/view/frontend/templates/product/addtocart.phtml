@@ -9,7 +9,15 @@
 /** @var $block \Magento\Catalog\Block\Product\View */
 ?>
 <?php $_product = $block->getProduct(); ?>
-<?php $buttonTitle = __('Purchase Tickets'); ?>
+<?php
+$objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+$customerSession = $objectManager->get('Magento\Customer\Model\Session');
+if($customerSession->isLoggedIn()) {
+    $buttonTitle = __('Purchase Tickets');
+} else {
+    $buttonTitle = __('Login To Purchase');
+}
+?>
 <?php if ($_product->isSaleable()): ?>
     <div class="box-tocart">
         <div class="fieldset">
@@ -28,6 +36,10 @@
                     </div>
                 </div>
             <?php endif; ?>
+            <div id="fiftyInformation" data-bind="scope:'fiftyInformation'">
+                <!-- ko template: getTemplate() --><!-- /ko -->
+            </div>
+            <input type="hidden" name="sku" value="<?= $_product->getSku() ?>" />
             <div class="actions">
                 <button type="submit"
                         title="<?= /* @escapeNotVerified */ $buttonTitle ?>"
@@ -43,7 +55,22 @@
 <script type="text/x-magento-init">
     {
         "#product_addtocart_form": {
-            "Angel_Fifty/js/validate-fifty": {}
+            "Angel_Fifty/js/validate-fifty": {
+                "loginUrl" : "<?= $block->getUrl('customer/account/login') ?>"
+            }
+        },
+        "#fiftyInformation": {
+            "Magento_Ui/js/core/app": {
+                "components" : {
+                    "fiftyInformation" : {
+                        "component": "Angel_Fifty/js/view/purchase-ticket-popup",
+                        "template": "Angel_Fifty/fifty-information",
+                        "currentFiftyPrice": "<?= $_product->getPrice() ?>",
+                        "currentPotPrice": "<?= $_product->getTypeInstance()->getCurrentPot($_product) ?>"
+                    }
+                }
+            }
         }
     }
+
 </script>
