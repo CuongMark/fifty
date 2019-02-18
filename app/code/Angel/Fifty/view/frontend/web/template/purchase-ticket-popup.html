@@ -29,7 +29,7 @@
         </div>
 
         <!-- ko if: (message) -->
-        <div data-bind="attr: {class: isSuccess?'purchase-message success':'purchase-message error'}">
+        <div data-bind="attr: {class: isSuccess()?'purchase-message success':'purchase-message error'}">
             <span data-bind="text:message" ></span>
         </div>
         <!--/ko-->

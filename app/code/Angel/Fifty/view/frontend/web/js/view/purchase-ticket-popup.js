@@ -118,6 +118,7 @@ define([
                 purchaseData[entry.name] = entry.value;
             });
             purchaseData['sku'] = this.productSku();
+            purchaseData['id'] = this.productId();
 
             if (formElement.validation() &&
                 formElement.validation('isValid')

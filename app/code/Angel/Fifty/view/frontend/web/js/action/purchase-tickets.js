@@ -26,7 +26,7 @@ define([
             messageContainer = messageContainer || globalMessageList;
 
             return storage.post(
-                'fifty/ticket/purchase/sku/'+purchaseData.sku+'/qty/'+purchaseData.qty,
+                'fifty/ticket/purchase/id/'+purchaseData.id+'/qty/'+purchaseData.qty,
                 JSON.stringify(purchaseData),
                 isGlobal
             ).done(function (response) {
@@ -41,8 +41,10 @@ define([
                     });
                     ticket.purchaseMessage(response.message);
                     ticket.purchaseSuccess(response.success);
-                    fifty.currentPot(Number.parseFloat(fifty.currentPot()) + Number.parseFloat(response.data.price));
-                    fifty.id(response.data.product_id)
+                    if(response.success) {
+                        fifty.currentPot(Number.parseFloat(fifty.currentPot()) + Number.parseFloat(response.data.price));
+                        fifty.id(response.data.product_id);
+                    }
 
                     customerData.invalidate(['customer']);
                 }

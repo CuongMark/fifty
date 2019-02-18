@@ -23,6 +23,9 @@ define([
         status: ko.observable(''),
 
         updateData: function ($data) {
+            if ($data.id){
+                this.id($data.id);
+            }
             if ($data.product_id){
                 this.id($data.product_id);
             }

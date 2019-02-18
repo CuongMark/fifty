@@ -77,10 +77,10 @@ class Purchase extends \Magento\Framework\App\Action\Action
     public function execute()
     {
         try {
-            $sku = $this->getRequest()->getParam('sku');
+            $id = $this->getRequest()->getParam('id');
             $qty = (int)$this->getRequest()->getParam('qty');
-            if ($qty > 0) {
-                $product = $this->productRepository->get($sku);
+            if (0&&$qty > 0) {
+                $product = $this->productRepository->getById($id);
                 $customer = $this->customerSession->getCustomer();
                 /** @var Fifty $productTypeInstance */
                 $productTypeInstance = $product->getTypeInstance();
