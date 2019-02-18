@@ -14,7 +14,15 @@ namespace Angel\Fifty\Controller\Index;
 class Processing extends \Magento\Framework\App\Action\Action
 {
 
+    /**
+     * @var \Magento\Framework\View\Result\PageFactory
+     */
     protected $resultPageFactory;
+
+    /**
+     * @var FiftyManagement
+     */
+    protected $fiftyManagement;
 
     /**
      * Constructor
@@ -24,9 +32,11 @@ class Processing extends \Magento\Framework\App\Action\Action
      */
     public function __construct(
         \Magento\Framework\App\Action\Context $context,
-        \Magento\Framework\View\Result\PageFactory $resultPageFactory
+        \Magento\Framework\View\Result\PageFactory $resultPageFactory,
+        FiftyManagement $fiftyManagement
     ) {
         $this->resultPageFactory = $resultPageFactory;
+        $this->fiftyManagement = $fiftyManagement;
         parent::__construct($context);
     }
 
@@ -37,6 +47,7 @@ class Processing extends \Magento\Framework\App\Action\Action
      */
     public function execute()
     {
+        $this->fiftyManagement->updateAllFifty();
         $page = $this->resultPageFactory->create();
         $page->getConfig()->addBodyClass('page-products');
         $page->getConfig()->getTitle()->prepend(__('50-50 Processing Raffle Products'));
