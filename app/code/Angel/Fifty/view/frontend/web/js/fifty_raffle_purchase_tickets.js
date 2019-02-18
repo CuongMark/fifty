@@ -28,7 +28,10 @@ define([
                     window.location.href = self.options.loginUrl;
                     return;
                 }
+                ticket.purchaseMessage('');
+                ticket.purchaseSuccess(null);
                 fifty.updateData(data);
+                purchaseTicketPopup.qty(1);
                 purchaseTicketPopup.showModal();
             });
         },

@@ -53,7 +53,7 @@
                     <div class="field email required">
                         <label class="label" for="qty"><span data-bind="i18n: 'Qty'"></span></label>
                         <div class="control">
-                            <input type="number" name="qty" id="qty" value="1" title="Qty" class="input-text qty"
+                            <input type="number" name="qty" id="qty" value="1" data-bind="value: qty" title="Qty" class="input-text qty"
                                    data-validate="{ 'required-number' : true, 'validate-item-quantity' :{ 'minAllowed' :1, 'maxAllowed' :100000}}">
                         </div>
                         <div class="suggess"><span data-bind="text: suggestCreditBalance"></span></div>

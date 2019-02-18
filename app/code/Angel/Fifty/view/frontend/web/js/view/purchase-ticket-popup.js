@@ -23,6 +23,7 @@ define([
     return Component.extend({
         modalWindow: null,
         fifty: fifty,
+        qty: purchaseTicketPopup.qty,
         isLoading: ko.observable(false),
         isSuccess: ticket.purchaseSuccess,
         message: ticket.purchaseMessage,

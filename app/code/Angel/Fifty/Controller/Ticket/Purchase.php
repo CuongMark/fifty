@@ -79,7 +79,7 @@ class Purchase extends \Magento\Framework\App\Action\Action
         try {
             $id = $this->getRequest()->getParam('id');
             $qty = (int)$this->getRequest()->getParam('qty');
-            if (0&&$qty > 0) {
+            if ($qty > 0) {
                 $product = $this->productRepository->getById($id);
                 $customer = $this->customerSession->getCustomer();
                 /** @var Fifty $productTypeInstance */

@@ -45,6 +45,10 @@ define([
                         fifty.currentPot(Number.parseFloat(fifty.currentPot()) + Number.parseFloat(response.data.price));
                         fifty.id(response.data.product_id);
                     }
+                    setTimeout(function () {
+                        ticket.purchaseMessage('');
+                        ticket.purchaseSuccess(null);
+                    },5000);
 
                     customerData.invalidate(['customer']);
                 }

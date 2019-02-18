@@ -46,4 +46,10 @@ class View extends \Magento\Catalog\Block\Product\View
     public function getCurrentPot(){
         return $this->priceCurrency->format($this->getProduct()->getTypeInstance()->getCurrentPot($this->getProduct()));
     }
+    public function getWinningNumber(){
+        return $this->getProduct()->getTypeInstance()->getPrize($this->getProduct())->getWinningNumber();
+    }
+    public function getWinningPrize(){
+        return $this->priceCurrency->format($this->getProduct()->getTypeInstance()->getPrize($this->getProduct())->getWinningPrize());
+    }
 }

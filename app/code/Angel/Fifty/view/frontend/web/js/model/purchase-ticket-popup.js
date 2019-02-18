@@ -12,9 +12,7 @@ define([
 
     return {
         modalWindow: null,
-        productName: ko.observable(''),
-        productImage: ko.observable(''),
-        productSku: ko.observable(''),
+        qty: ko.observable(1),
 
         /**
          * Create popUp window for provided element

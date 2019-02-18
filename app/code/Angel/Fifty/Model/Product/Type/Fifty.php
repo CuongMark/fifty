@@ -181,7 +181,7 @@ class Fifty extends \Magento\Catalog\Model\Product\Type\Virtual
             }
             return $product;
         } elseif ($this->isProcessing($product) && $this->getTimeLeft($product) <= 0){
-            if (!$this->hasWinningTickets($product) && $this->getTicketCollection($product)->getSize()){
+            if (!$this->hasWinningTickets($product) && $this->getTicketCollection($product)->getSize()) {
                 try {
                     $lastTicketNumer = $this->getLastTicketNumberByProduct($product);
                     $winningNumber = mt_rand(1, $lastTicketNumer);
@@ -258,10 +258,16 @@ class Fifty extends \Magento\Catalog\Model\Product\Type\Virtual
                     $this->productRepository->save($product);
 
                     $this->_db->commit();
-                } catch (\Exception $e){
+                } catch (\Exception $e) {
                     $this->_db->rollBack();
                     $this->_logger->error($e->getMessage());
                 }
+            }elseif (!$this->getTicketCollection($product)->getSize()){
+                /**
+                 * update product status
+                 */
+                $product->setFiftyStatus(FiftyStatus::STATUS_CANCELED);
+                $this->productRepository->save($product);
             } else {
                 return $product;
             }
