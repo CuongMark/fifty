@@ -21,7 +21,7 @@ define([
         },
         isLoggedIn : function () {
             var customer = customerData.get('customer');
-            return customer && customer.firstname;
+            return customer && customer().firstname;
         },
 
         /**
@@ -43,7 +43,7 @@ define([
                 submitHandler: function (form) {
                     if (!self.isLoggedIn()){
                         window.location.href = self.options.loginUrl;
-                        return;
+                        return false;
                     }
                     if (self.isLoading()){
                         return false;

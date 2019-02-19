@@ -11,6 +11,10 @@
 
 namespace Angel\Fifty\Controller\Index;
 
+
+
+use Angel\Fifty\Model\FiftyManagement;
+
 class Processing extends \Magento\Framework\App\Action\Action
 {
 

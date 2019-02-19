@@ -99,6 +99,14 @@ class Lists extends \Magento\Framework\View\Element\Template
         return $this->ticketCollection;
     }
 
+    /**
+     * @return string
+     */
+    public function getPagerHtml()
+    {
+        return $this->getChildHtml('pager');
+    }
+
 
     /**
      * @param object $ticket
