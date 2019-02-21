@@ -3,10 +3,4 @@
 	<event name="catalog_product_edit_action">
 		<observer instance="Angel\Fifty\Observer\Backend\Catalog\ProductEditAction" name="angel_fifty_observer_backend_catalog_producteditaction_catalog_product_edit_action"/>
 	</event>
-	<event name="controller_action_catalog_product_save_entity_after">
-		<observer instance="Angel\Fifty\Observer\Backend\Controller\ActionCatalogProductSaveEntityAfter" name="angel_fifty_observer_backend_controller_actioncatalogproductsaveentityafter_controller_action_catalog_product_save_entity_after"/>
-	</event>
-	<event name="catalog_product_save_before">
-		<observer instance="Angel\Fifty\Observer\Backend\Catalog\ProductSaveBefore" name="angel_fifty_observer_backend_catalog_productsavebefore_catalog_product_save_before"/>
-	</event>
 </config>

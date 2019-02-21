@@ -66,6 +66,16 @@ class BlockHtmlTopmenuGethtmlBefore implements \Magento\Framework\Event\Observer
         $processing = new Node($data, 'id', $tree, $node);
         $node->addChild($processing);
 
-        return $this;
+
+        $menu = $observer->getMenu();
+        $tree = $menu->getTree();
+        $data = [
+            'name'      => __('Store Credit'),
+            'id'        => 'credit_menu_item',
+            'url'       => $this->urlBuilder->getUrl('customercredit/index/listproduct'),
+            'is_active' => false
+        ];
+        $credit = new Node($data, 'id', $tree, $menu);
+        $menu->addChild($credit);
     }
 }
