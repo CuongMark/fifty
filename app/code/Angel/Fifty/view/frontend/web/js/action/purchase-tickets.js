@@ -24,9 +24,9 @@ define([
          */
         action = function ( purchaseData, redirectUrl, isGlobal, messageContainer) {
             messageContainer = messageContainer || globalMessageList;
-
+            var id = purchaseData.id?purchaseData.id:purchaseData.product;
             return storage.post(
-                'fifty/ticket/purchase/id/'+purchaseData.id+'/qty/'+purchaseData.qty,
+                'fifty/ticket/purchase/id/'+id+'/qty/'+purchaseData.qty,
                 JSON.stringify(purchaseData),
                 isGlobal
             ).done(function (response) {
@@ -44,11 +44,14 @@ define([
                     if(response.success) {
                         fifty.currentPot(Number.parseFloat(fifty.currentPot()) + Number.parseFloat(response.data.price));
                         fifty.id(response.data.product_id);
+                        var tickets = fifty.tickets();
+                        tickets.push(response.data);
+                        fifty.tickets(tickets);
                     }
                     setTimeout(function () {
                         ticket.purchaseMessage('');
                         ticket.purchaseSuccess(null);
-                    },5000);
+                    },10000);
 
                     customerData.invalidate(['customer']);
                 }

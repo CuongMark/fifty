@@ -7,6 +7,7 @@
     <body>
         <referenceContainer name="product.info.main">
             <block class="Angel\Fifty\Block\Product\View" name="raffle.block" as="raffle.block" after="product.info.price" cacheable="false" template="Angel_Fifty::product/view.phtml"/>
+            <block class="Angel\Fifty\Block\Product\View" name="prizes.block" as="prizes.block" after="raffle.block" template="Angel_Fifty::product/tickets.phtml"/>
         </referenceContainer>
         <referenceBlock name="product.info.addtocart">
             <action method="setTemplate">

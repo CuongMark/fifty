@@ -26,6 +26,7 @@ class FiftyManagement {
 
     public function updateAllFifty(){
         $products = $this->productCollectionFactory->create()
+            ->addAttributeToSelect('*')
             ->addAttributeToFilter('type_id', Fifty::TYPE_ID)
             ->addAttributeToFilter('fifty_status', ['in' =>[ FiftyStatus::STATUS_PENDING, FiftyStatus::STATUS_PROCESSING]]);
         /** @var Product $_product */

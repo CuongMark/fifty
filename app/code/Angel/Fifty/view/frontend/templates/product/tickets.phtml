@@ -1,0 +1,17 @@
+<div id="raffleInformation" data-bind="scope:'raffleInformation'">
+    <!-- ko template: getTemplate() --><!-- /ko -->
+    <script type="text/x-magento-init">
+        {
+            "#raffleInformation": {
+                "Magento_Ui/js/core/app": {
+                    "components" : {
+                        "raffleInformation" : {
+                            "component": "Angel_Fifty/js/view/purchase-ticket-popup",
+                            "template" : "Angel_Fifty/purchased-ticket"
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+</div>

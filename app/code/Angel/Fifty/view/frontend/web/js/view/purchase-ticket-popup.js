@@ -15,9 +15,9 @@ define([
     'Magento_Catalog/js/price-utils',
     'mage/translate',
     'mage/url',
-    'Magento_Ui/js/modal/alert',
+    'Magento_Ui/js/modal/confirm',
     'mage/validation'
-], function ($, ko, Component, loginAction, customerData, fifty, ticket, purchaseTicketPopup, priceUtils, $t, url, alert) {
+], function ($, ko, Component, loginAction, customerData, fifty, ticket, purchaseTicketPopup, priceUtils, $t, url, confirmation) {
     'use strict';
 
     return Component.extend({
@@ -35,10 +35,10 @@ define([
         currentPot : fifty.currentPot,
         priceFormat : window.checkoutConfig?window.checkoutConfig.priceFormat:{"pattern":"$%s","precision":2,"requiredPrecision":2,"decimalSymbol":".","groupSymbol":",","groupLength":3,"integerRequired":false},
         timeLeft: 0,
-        day: ko.observable(0),
-        hour: ko.observable(0),
-        minute: ko.observable(0),
-        second: ko.observable(0),
+        tickets: fifty.tickets,
+        formatPrice: function(price){
+            return priceUtils.formatPrice(price, this.priceFormat);
+        },
         defaults: {
             template: 'Angel_Fifty/purchase-ticket-popup'
         },
@@ -62,6 +62,9 @@ define([
                     return $t('Please buy credit to purchase');
                 }
                 return $t('You have got ') + balance + $t(' credits. The maximum tickets to purchase is ') + Number.parseInt(self.customer().creditBalance/self.productPrice());
+            });
+            this.hasTickets = ko.computed(function(){
+                return self.tickets().length;
             });
             this.productPriceFormated = ko.computed(function(){
                 return priceUtils.formatPrice(self.productPrice(), self.priceFormat);
@@ -104,12 +107,7 @@ define([
             }
         },
 
-        /**
-         * Provide login action
-         *
-         * @return {Boolean}
-         */
-        purchase: function (formUiElement, event) {
+        submitPurchaseRequest : function (formUiElement, event) {
             var purchaseData = {},
                 formElement = $(event.currentTarget),
                 formDataArray = formElement.serializeArray();
@@ -127,7 +125,29 @@ define([
                 this.isLoading(true);
                 loginAction(purchaseData);
             }
+            return false;
+        },
 
+        /**
+         * Provide login action
+         *
+         * @return {Boolean}
+         */
+        purchase: function (formUiElement, event) {
+            var self = this;
+            confirmation({
+                title: 'Accept Purchase',
+                content: 'Are you sure to purchase '+ $('#qty').val() +' tickets?',
+                actions: {
+                    confirm: function () {
+                        self.submitPurchaseRequest(formUiElement, event);
+                        return false;
+                    },
+                    cancel: function () {
+                        return false;
+                    }
+                }
+            });
             return false;
         }
     });

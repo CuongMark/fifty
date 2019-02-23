@@ -1,0 +1,18 @@
+<!-- ko if: hasTickets -->
+<h2 class="head" data-bind="i18n:'Your new purchased tickets'"></h2>
+<table class="my-tickets">
+    <tr class="head">
+        <th data-bind="i18n:'Start'"></th>
+        <th data-bind="i18n:'End'"></th>
+        <th data-bind="i18n:'Price'"></th>
+        <th></th>
+    </tr>
+    <!-- ko foreach: { data: tickets(), as: 'ticket'}  -->
+    <tr>
+        <td data-bind="text: ticket.start"></td>
+        <td data-bind="text: ticket.end"></td>
+        <td data-bind="text: $parent.formatPrice(ticket.price) "></td>
+    </tr>
+    <!--/ko-->
+</table>
+<!--/ko-->

@@ -11,6 +11,7 @@ use Angel\Fifty\Model\Product\Attribute\Source\FiftyStatus;
 use Magento\Catalog\Model\Locator\LocatorInterface;
 use Magento\Catalog\Model\Product;
 use Magento\Catalog\Ui\DataProvider\Product\Form\Modifier\AbstractModifier;
+use Magento\Framework\Pricing\PriceCurrencyInterface;
 use Magento\Framework\Stdlib\ArrayManager;
 
 class Fifty extends AbstractModifier
@@ -24,13 +25,16 @@ class Fifty extends AbstractModifier
      * @var ArrayManager
      */
     protected $arrayManager;
+    private $priceCurrency;
 
     public function __construct(
         LocatorInterface $locator,
-        ArrayManager $arrayManager
+        ArrayManager $arrayManager,
+        PriceCurrencyInterface $priceCurrency
     ){
         $this->locator = $locator;
         $this->arrayManager = $arrayManager;
+        $this->priceCurrency = $priceCurrency;
     }
 
     /**
@@ -147,6 +151,9 @@ class Fifty extends AbstractModifier
     }
 
     protected function disableFinishAtField(array $meta){
+        $winningNumber = $this->locator->getProduct()->getTypeInstance()->getPrize($this->locator->getProduct())->getWinningNumber();
+        $winningPrize = $this->locator->getProduct()->getTypeInstance()->getPrize($this->locator->getProduct())->getWinningPrize();
+        $notice = $winningNumber?__('Winning Number: %1. Winning Prize: %2', $winningNumber, $this->priceCurrency->format($winningPrize, false, 0)):'';
         $meta = array_replace_recursive(
             $meta,
             [
@@ -159,6 +166,7 @@ class Fifty extends AbstractModifier
                                         'data' => [
                                             'config' => [
                                                 'disabled' => true,
+                                                'notice' => $notice
                                             ],
                                         ],
                                     ]

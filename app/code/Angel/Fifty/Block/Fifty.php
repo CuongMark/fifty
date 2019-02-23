@@ -60,13 +60,16 @@ Class Fifty extends \Magento\Catalog\Block\Product\ListProduct
      */
     protected function _getProductCollection()
     {
-        $collection = $this->productCollectionFactory->create();
-        $collection->addAttributeToSelect('*');
-        $collection->addAttributeToFilter('visibility', \Magento\Catalog\Model\Product\Visibility::VISIBILITY_BOTH);
-        $collection->addAttributeToFilter('status',\Magento\Catalog\Model\Product\Attribute\Source\Status::STATUS_ENABLED);
-        $collection->addFieldToFilter('type_id', \Angel\Fifty\Model\Product\Type\Fifty::TYPE_ID);
-        $collection->addStoreFilter($this->_storeManager->getStore()->getId());
-        return $collection;
+        if (!$this->_productCollection) {
+            $collection = $this->productCollectionFactory->create();
+            $collection->addAttributeToSelect('*');
+            $collection->addAttributeToFilter('visibility', \Magento\Catalog\Model\Product\Visibility::VISIBILITY_BOTH);
+            $collection->addAttributeToFilter('status', \Magento\Catalog\Model\Product\Attribute\Source\Status::STATUS_ENABLED);
+            $collection->addFieldToFilter('type_id', \Angel\Fifty\Model\Product\Type\Fifty::TYPE_ID);
+            $collection->addStoreFilter($this->_storeManager->getStore()->getId());
+            $this->_productCollection = $collection;
+        }
+        return $this->_productCollection;
     }
 
     /**

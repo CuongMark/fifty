@@ -3,16 +3,17 @@
 	<preference for="Angel\Fifty\Api\TicketRepositoryInterface" type="Angel\Fifty\Model\TicketRepository"/>
 	<preference for="Angel\Fifty\Api\Data\TicketInterface" type="Angel\Fifty\Model\Data\Ticket"/>
 	<preference for="Angel\Fifty\Api\Data\TicketSearchResultsInterface" type="Magento\Framework\Api\SearchResults"/>
-	<virtualType name="Angel\Fifty\Model\ResourceModel\Ticket\Grid\Collection" type="Magento\Framework\View\Element\UiComponent\DataProvider\SearchResult">
-		<arguments>
-			<argument name="mainTable" xsi:type="string">angel_fifty_ticket</argument>
-			<argument name="resourceModel" xsi:type="string">Angel\Fifty\Model\ResourceModel\Ticket\Collection</argument>
-		</arguments>
-	</virtualType>
+	<!--<virtualType name="Angel\Fifty\Model\ResourceModel\Ticket\Grid\Collection" type="Magento\Framework\View\Element\UiComponent\DataProvider\SearchResult">-->
+		<!--<arguments>-->
+			<!--<argument name="mainTable" xsi:type="string">angel_fifty_ticket</argument>-->
+			<!--<argument name="resourceModel" xsi:type="string">Angel\Fifty\Model\ResourceModel\Ticket\Collection</argument>-->
+		<!--</arguments>-->
+	<!--</virtualType>-->
 	<type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
 		<arguments>
 			<argument name="collections" xsi:type="array">
 				<item name="angel_fifty_ticket_listing_data_source" xsi:type="string">Angel\Fifty\Model\ResourceModel\Ticket\Grid\Collection</item>
+				<item name="fifty_ticket_listing_data_source" xsi:type="string">Angel\Fifty\Model\ResourceModel\Ticket\Grid\Collection</item>
 			</argument>
 		</arguments>
 	</type>

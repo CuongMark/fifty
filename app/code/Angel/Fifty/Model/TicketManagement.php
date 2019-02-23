@@ -19,11 +19,14 @@ class TicketManagement {
      * @var CollectionFactory
      */
     protected $ticketCollectionFactory;
+    private $productCollectionFactory;
 
     public function __construct(
-        CollectionFactory $ticketCollectionFactory
+        CollectionFactory $ticketCollectionFactory,
+        \Magento\Catalog\Model\ResourceModel\Product\CollectionFactory $productCollectionFactory
     ){
         $this->ticketCollectionFactory = $ticketCollectionFactory;
+        $this->productCollectionFactory = $productCollectionFactory;
     }
 
     /**
@@ -92,11 +95,12 @@ class TicketManagement {
      * @return Collection
      */
     public function joinProductName($collection){
-        $productNameAttributeId = \Magento\Framework\App\ObjectManager::getInstance()->create('Magento\Eav\Model\Config')
-            ->getAttribute(\Magento\Catalog\Model\Product::ENTITY, \Magento\Catalog\Api\Data\ProductInterface::NAME)
-            ->getAttributeId();
-        $collection->getSelect()->joinLeft(['product_varchar' => $collection->getTable('catalog_product_entity_varchar')],
-            "product_varchar.entity_id = main_table.product_id AND product_varchar.attribute_id = $productNameAttributeId", ['product_name' => 'product_varchar.value']
+        $productCollection = $this->productCollectionFactory->create()
+            ->addAttributeToSelect(['name']);
+        $productCollection->joinAttribute('name', 'catalog_product/name', 'entity_id', null, 'inner');
+        $collection->getSelect()->joinLeft(['product' => new \Zend_Db_Expr('('.$productCollection->getSelect()->__toString().')')],
+            "product.entity_id = main_table.product_id",
+            ['product_name' => 'product.name']
         );
         return $collection;
     }

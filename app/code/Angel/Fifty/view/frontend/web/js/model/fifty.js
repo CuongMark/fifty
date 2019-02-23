@@ -21,6 +21,7 @@ define([
         currentPot: ko.observable(0),
         winning_number: ko.observable(''),
         status: ko.observable(''),
+        tickets: ko.observable([]),
 
         updateData: function ($data) {
             if ($data.id){

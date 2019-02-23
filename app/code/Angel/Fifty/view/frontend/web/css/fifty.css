@@ -4,3 +4,12 @@
 .purchase-message.error{
     background-color: indianred;
 }
+.my-tickets tr.head{
+    background-color: #d1d6d8;
+}
+.earn-money{
+    background-color: green;
+}
+.lose-money{
+    background-color: indianred;
+}

@@ -16,7 +16,7 @@
 			<updateUrl path="mui/index/render"/>
 		</settings>
 		<aclResource>Angel_Fifty::Ticket</aclResource>
-		<dataProvider class="Angel\Fifty\Ui\DataProvider\Ticket\TicketDataProvider" name="angel_fifty_ticket_listing_data_source">
+		<dataProvider class="Magento\Framework\View\Element\UiComponent\DataProvider\DataProvider" name="angel_fifty_ticket_listing_data_source">
 			<settings>
 				<requestFieldName>id</requestFieldName>
 				<primaryFieldName>ticket_id</primaryFieldName>
@@ -28,25 +28,7 @@
 			<sticky>false</sticky>
 		</settings>
 		<bookmark name="bookmarks"/>
-		<exportButton class="Magento\Ui\Component\ExportButton">
-			<argument name="data" xsi:type="array">
-				<item name="config" xsi:type="array">
-					<item name="displayArea" xsi:type="string">dataGridActions</item>
-					<item name="options" xsi:type="array">
-						<item name="cvs" xsi:type="array">
-							<item name="value" xsi:type="string">csv</item>
-							<item name="label" xsi:type="string" translate="true">CSV</item>
-							<item name="url" xsi:type="string">fifty/ticket/ExportCSV</item>
-						</item>
-						<item name="xml" xsi:type="array">
-							<item name="value" xsi:type="string">xml</item>
-							<item name="label" xsi:type="string" translate="true">Excel XML</item>
-							<item name="url" xsi:type="string">fifty/ticket/ExportCSV</item>
-						</item>
-					</item>
-				</item>
-			</argument>
-		</exportButton>
+		<exportButton name="export_button" />
 		<columnsControls name="columns_controls"/>
 		<filters name="listing_filters"/>
 		<paging name="listing_paging"/>
@@ -125,6 +107,12 @@
 				<label translate="true">Credit Transaction Id</label>
 			</settings>
 		</column>
+		<column name="winning_number">
+			<settings>
+				<filter>text</filter>
+				<label translate="true">Winning Number</label>
+			</settings>
+		</column>
 		<column name="status" component="Magento_Ui/js/grid/columns/select" sortOrder="50">
 			<settings>
 				<options class="Angel\Fifty\Model\Ticket\Status"/>
@@ -135,17 +123,15 @@
 		</column>
 		<column name="price" class="Magento\Catalog\Ui\Component\Listing\Columns\Price" sortOrder="70">
 			<settings>
-				<addField>true</addField>
 				<filter>textRange</filter>
 				<label translate="true">Price</label>
 			</settings>
 		</column>
-		<actionsColumn class="Angel\Fifty\Ui\Component\Listing\Column\TicketActions" name="actions">
+		<column name="winning_prize" class="Magento\Catalog\Ui\Component\Listing\Columns\Price" sortOrder="75">
 			<settings>
-				<indexField>ticket_id</indexField>
-				<resizeEnabled>false</resizeEnabled>
-				<resizeDefaultWidth>107</resizeDefaultWidth>
+				<filter>textRange</filter>
+				<label translate="true">Winning Prize</label>
 			</settings>
-		</actionsColumn>
+		</column>
 	</columns>
 </listing>

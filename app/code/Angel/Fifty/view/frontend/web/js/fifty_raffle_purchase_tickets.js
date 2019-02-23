@@ -30,6 +30,7 @@ define([
                 }
                 ticket.purchaseMessage('');
                 ticket.purchaseSuccess(null);
+                fifty.tickets([]);
                 fifty.updateData(data);
                 purchaseTicketPopup.qty(1);
                 purchaseTicketPopup.showModal();
