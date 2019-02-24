@@ -4,7 +4,7 @@
     <div class="field password current required">
         <label class="label" for="nick_name"><span><?= $block->escapeHtml(__('Nick Name')) ?></span></label>
         <div class="control">
-            <input type="text" class="input-text" name="nick_name" id="nick_name" value="<?= $block->getNickName() ?>" data-validate="{required:true}" autocomplete="off" />
+            <input type="text" class="input-text" name="nick_name" id="nick_name" value="<?= $block->getNickName() ?>" data-validate="{required:false}" autocomplete="off" />
         </div>
     </div>
 </fieldset>

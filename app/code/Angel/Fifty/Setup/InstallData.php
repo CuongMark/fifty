@@ -46,28 +46,28 @@ class InstallData implements InstallDataInterface
         ModuleDataSetupInterface $setup,
         ModuleContextInterface $context
     ) {
-        $customerSetup = $this->customerSetupFactory->create(['setup' => $setup]);
-
-        $customerSetup->addAttribute(\Magento\Customer\Model\Customer::ENTITY, 'nick_name', [
-            'type' => 'varchar',
-            'label' => 'Nick Name',
-            'input' => 'text',
-            'source' => '',
-            'required' => true,
-            'visible' => true,
-            'position' => 333,
-            'system' => false,
-            'backend' => ''
-        ]);
-        
-        $attribute = $customerSetup->getEavConfig()->getAttribute('customer', 'nick_name')
-        ->addData(['used_in_forms' => [
-                'adminhtml_customer',
-                'customer_account_create',
-                'customer_account_edit'
-            ]
-        ]);
-        $attribute->save();
+//        $customerSetup = $this->customerSetupFactory->create(['setup' => $setup]);
+//
+//        $customerSetup->addAttribute(\Magento\Customer\Model\Customer::ENTITY, 'nick_name', [
+//            'type' => 'varchar',
+//            'label' => 'Nick Name',
+//            'input' => 'text',
+//            'source' => '',
+//            'required' => true,
+//            'visible' => true,
+//            'position' => 333,
+//            'system' => false,
+//            'backend' => ''
+//        ]);
+//
+//        $attribute = $customerSetup->getEavConfig()->getAttribute('customer', 'nick_name')
+//        ->addData(['used_in_forms' => [
+//                'adminhtml_customer',
+//                'customer_account_create',
+//                'customer_account_edit'
+//            ]
+//        ]);
+//        $attribute->save();
 
         //Your install script
 
