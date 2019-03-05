@@ -27,13 +27,6 @@ define([
 
         submitPurchaseRequest : function (form) {
             var self = this;
-            if (!self.isLoggedIn()){
-                window.location.href = self.options.loginUrl;
-                return false;
-            }
-            if (self.isLoading()){
-                return false;
-            }
             var formElement = $('#'+form.id),
                 formDataArray = formElement.serializeArray();
             var purchaseData = [];
@@ -67,6 +60,13 @@ define([
                  * @returns {Boolean}
                  */
                 submitHandler: function (form) {
+                    if (!self.isLoggedIn()){
+                        window.location.href = self.options.loginUrl;
+                        return false;
+                    }
+                    if (self.isLoading()){
+                        return false;
+                    }
                     confirmation({
                         title: 'Accept Purchase',
                         content: 'Are you sure to purchase '+ $('#qty').val() +' tickets?',

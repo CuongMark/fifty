@@ -42,7 +42,7 @@ define([
                     ticket.purchaseMessage(response.message);
                     ticket.purchaseSuccess(response.success);
                     if(response.success) {
-                        fifty.currentPot(Number.parseFloat(fifty.currentPot()) + Number.parseFloat(response.data.price));
+                        fifty.currentPot(parseFloat(fifty.currentPot()) + parseFloat(response.data.price));
                         fifty.id(response.data.product_id);
                         var tickets = fifty.tickets();
                         tickets.push(response.data);
