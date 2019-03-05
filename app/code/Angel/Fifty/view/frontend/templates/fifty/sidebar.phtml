@@ -1,9 +1,24 @@
 <?php
-/**
- * @var $block \Angel\Fifty\Block\Fifty\Sidebar
- */
+/** @var $block \Angel\Fifty\Block\Fifty\Sidebar */
+/** @var  $getListFinishedFifty */
+$getListFinishedFifty = $block->getFinishedFifty();
 ?>
-<div>
-	<?= $block->getFinished() ?>
-	<?= __('Hello Angel_Fifty::fifty/sidebar.phtml') ?>
-</div>
+<?php if($getListFinishedFifty->getSize()): ?>
+    <marquee direction="up" scrolldelay="50" scrollamount="2">
+        <div class="block block-layered-nav finished-Fifty">
+            <div class="block-title">
+                <strong><span><?= __('Finished 50/50 Raffle') ?></span></strong>
+            </div>
+            <ul class="fifty_list" style="list-style: none; padding-left: 3px;">
+                <?php foreach ($getListFinishedFifty as $item): ?>
+                    <li>
+                        <span><a href="<?= $block->getUrl('catalog/product/view', array('id'=> $item->getId())) ?>"><?= $item->getName() ?></a> </span>
+                        <br/>
+                        <span><?= $item->getWinningNumber() ?></span>
+                        <span><?= $block->formatPrice($item->getWinningPrice()) ?></span>
+                    </li>
+                <?php endforeach; ?>
+            </ul>
+        </div>
+    </marquee>
+<?php endif; ?>

@@ -61,7 +61,7 @@ define([
                 if (!self.customer().creditBalance){
                     return $t('Please buy credit to purchase');
                 }
-                return $t('You have got ') + balance + $t(' credits. The maximum tickets to purchase is ') + Number.parseInt(self.customer().creditBalance/self.productPrice());
+                return $t('You have got ') + balance + $t(' credits. The maximum tickets to purchase is ') + parseInt(self.customer().creditBalance/self.productPrice());
             });
             this.hasTickets = ko.computed(function(){
                 return self.tickets().length;
