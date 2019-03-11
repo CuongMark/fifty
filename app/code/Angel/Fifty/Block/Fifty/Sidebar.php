@@ -13,6 +13,7 @@ namespace Angel\Fifty\Block\Fifty;
 
 use Angel\Fifty\Model\PrizeManagement;
 use Angel\Fifty\Model\Product\Attribute\Source\FiftyStatus;
+use Magento\Framework\Pricing\PriceCurrencyInterface;
 
 class Sidebar extends \Magento\Framework\View\Element\Template
 {
@@ -23,6 +24,7 @@ class Sidebar extends \Magento\Framework\View\Element\Template
     protected $productCollectionFactory;
     protected  $_productCollection;
     private $prizeManagement;
+    private $priceCurrency;
 
     /**
      * Constructor
@@ -34,10 +36,12 @@ class Sidebar extends \Magento\Framework\View\Element\Template
         \Magento\Framework\View\Element\Template\Context $context,
         \Magento\Catalog\Model\ResourceModel\Product\CollectionFactory $productCollectionFactory,
         PrizeManagement $prizeManagement,
+        PriceCurrencyInterface $priceCurrency,
         array $data = []
     ) {
         $this->productCollectionFactory = $productCollectionFactory;
         $this->prizeManagement = $prizeManagement;
+        $this->priceCurrency = $priceCurrency;
         parent::__construct($context, $data);
     }
 
@@ -55,8 +59,25 @@ class Sidebar extends \Magento\Framework\View\Element\Template
             $collection->addAttributeToFilter('fifty_status', FiftyStatus::STATUS_FINISHED);
             $this->prizeManagement->joinWinningNumberAndPrice($collection);
             $collection->setCurPage(1)->setPageSize(10);
+            $collection->setOrder('raffle_end_at');
             $this->_productCollection = $collection;
         }
         return $this->_productCollection;
+    }
+
+    /**
+     * Retrieve formated price
+     *
+     * @param float $value
+     * @return string
+     */
+    public function formatPrice($value, $isHtml = true)
+    {
+        return $this->priceCurrency->format(
+            $value,
+            $isHtml,
+            PriceCurrencyInterface::DEFAULT_PRECISION,
+            1 //Todo getStore
+        );
     }
 }

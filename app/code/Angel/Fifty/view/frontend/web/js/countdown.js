@@ -31,11 +31,14 @@ define([], function () {
     return function(config, node)
     {
         // retrieve the value from the span
-        var sec = node.dataset.timeLeft;
+        var sec = config.time_left;
+        var endTime = parseInt((new Date().getTime())/1000) + sec;
         var timer = setInterval(function() {
-            node.innerHTML = getTimeFormated(--sec);
-            if (sec <= 0) {
+            var now = parseInt((new Date().getTime())/1000);
+            node.innerHTML = getTimeFormated(endTime-now);
+            if (endTime-now <= 0) {
                 clearInterval(timer);
+                window.location.reload();
             }
         }, 1000);
     };

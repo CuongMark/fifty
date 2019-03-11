@@ -1,11 +1,11 @@
 <?xml version="1.0" ?>
 <widgets xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Widget:etc/widget.xsd">
 	<widget class="Angel\Fifty\Block\Widget\Fifty_raffle" id="angel_fifty_fifty_raffle">
-		<label>fifty_raffle</label>
-		<description>fifty_raffle</description>
+		<label>50/50 Raffle</label>
+		<description>50/50 Raffle</description>
 		<parameters>
-			<parameter name="list" sort_order="10" source_model="Magento\Config\Model\Config\Source\Yesno" visible="true" xsi:type="select">
-				<label>list</label>
+			<parameter name="product_count" sort_order="10" visible="true" xsi:type="text">
+				<label>Number of products to show</label>
 			</parameter>
 		</parameters>
 	</widget>

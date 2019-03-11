@@ -16,6 +16,7 @@ use Angel\Fifty\Model\Product\Type\Fifty;
 use Angel\Fifty\Model\Ticket;
 use Angel\Fifty\Model\TicketFactory;
 use Angel\Fifty\Model\TicketRepository;
+use Magento\Catalog\Model\Product;
 use Magento\Catalog\Model\ProductRepository;
 use Magento\Customer\Helper\Session\CurrentCustomer;
 use Magento\Customer\Model\Session;
@@ -80,19 +81,27 @@ class Purchase extends \Magento\Framework\App\Action\Action
             $id = $this->getRequest()->getParam('id');
             $qty = (int)$this->getRequest()->getParam('qty');
             if ($qty > 0) {
+                /** @var Product $product */
                 $product = $this->productRepository->getById($id);
-                $customer = $this->customerSession->getCustomer();
-                /** @var Fifty $productTypeInstance */
-                $productTypeInstance = $product->getTypeInstance();
-                /** @var \Angel\Fifty\Model\Data\Ticket $newTicketData */
-                $newTicketData = $productTypeInstance->createTicket($product, $customer, $qty);
-                $message = $qty==1?__('You purchaed successfully a ticket. The ticket number is %1', $newTicketData->getStart())
-                    :__('You purchaed successfully %1 tickets. The ticket numbers is from %2 to %3', $qty, $newTicketData->getStart(), $newTicketData->getEnd());
-                return $this->jsonResponse([
-                    'success' => true,
-                    'data' => $newTicketData->__toArray(),
-                    'message' => $message
-                ]);
+                $product->getTypeInstance()->updateFiftyStatus($product);
+                if ($product->getFiftyStatus() == FiftyStatus::STATUS_PROCESSING) {
+                    $customer = $this->customerSession->getCustomer();
+                    /** @var Fifty $productTypeInstance */
+                    $productTypeInstance = $product->getTypeInstance();
+                    /** @var \Angel\Fifty\Model\Data\Ticket $newTicketData */
+                    $newTicketData = $productTypeInstance->createTicket($product, $customer, $qty);
+                    $message = $qty == 1 ? __('You purchaed successfully a ticket. The ticket number is %1', $newTicketData->getStart())
+                        : __('You purchaed successfully %1 tickets. The ticket numbers is from %2 to %3', $qty, $newTicketData->getStart(), $newTicketData->getEnd());
+                    return $this->jsonResponse([
+                        'success' => true,
+                        'data' => $newTicketData->__toArray(),
+                        'message' => $message
+                    ]);
+                } else if ($product->getFiftyStatus() == FiftyStatus::STATUS_FINISHED){
+                    throw new \Exception('This 50/50 Raffle was finished. Please reload page to see the update.');
+                } else {
+                    throw new \Exception('The Raffle is not processing');
+                }
             } else {
                 throw new \Exception('Qty is not available');
             }

@@ -94,6 +94,7 @@ class Lists extends \Magento\Framework\View\Element\Template
             $ticketCollection->addFieldToFilter('main_table.status', ['neq' => \Angel\Fifty\Model\Ticket\Status::STATUS_CANCELED]);
             $this->ticketManagement->joinProductName($ticketCollection);
             $this->ticketManagement->joinPrize($ticketCollection);
+            $ticketCollection->setOrder('ticket_id');
             $this->ticketCollection = $ticketCollection;
         }
         return $this->ticketCollection;
@@ -114,7 +115,7 @@ class Lists extends \Magento\Framework\View\Element\Template
      */
     public function getViewUrl($ticket)
     {
-        return $this->getUrl('fifty/index/view', ['id' => $ticket->getId()]);
+        return $this->getUrl('fifty/ticket/view', ['id' => $ticket->getId()]);
     }
 
     /**
@@ -123,7 +124,7 @@ class Lists extends \Magento\Framework\View\Element\Template
      */
     public function getTrashUrl($ticket)
     {
-        return $this->getUrl('fifty/index/trash', ['id' => $ticket->getId()]);
+        return $this->getUrl('fifty/ticket/trash', ['id' => $ticket->getId()]);
     }
 
     /**

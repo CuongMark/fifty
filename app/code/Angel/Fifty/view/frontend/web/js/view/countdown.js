@@ -29,6 +29,7 @@ define([
                 var finished = self.updateCountdown();
                 if (finished){
                     clearInterval(interval);
+                    window.location.reload();
                 }
             }, 1000);
         },

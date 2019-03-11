@@ -15,6 +15,7 @@ class Sales extends \Magento\Backend\App\Action
 {
 
     protected $resultPageFactory;
+    const ADMIN_RESOURCE = 'Angel_Fifty::report_sales';
 
     /**
      * Constructor
@@ -42,10 +43,5 @@ class Sales extends \Magento\Backend\App\Action
         $resultPage->getConfig()->getTitle()->prepend(__('50/50 Raffles'));
 
         return $resultPage;
-    }
-
-    protected function _isAllowed()
-    {
-        return $this->_authorization->isAllowed('Angel_Fifty::report_sale');
     }
 }

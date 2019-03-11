@@ -75,6 +75,7 @@ class Fifty extends \Magento\Catalog\Model\Product\Type\Virtual
      * @var \Magento\Framework\DB\Adapter\AdapterInterface
      */
     private $_db;
+    private $action;
 
     public function __construct(
         \Magento\Catalog\Model\Product\Option $catalogProductOption,
@@ -93,6 +94,7 @@ class Fifty extends \Magento\Catalog\Model\Product\Type\Virtual
         PrizeFactory $prizeFactory,
         PrizeRepositoryInterface $prizeRepository,
         EmailFactory $emailServiceFactory,
+        \Magento\Catalog\Model\ResourceModel\Product\Action $action,
         \Magento\Framework\Serialize\Serializer\Json $serializer = null
     ){
         parent::__construct($catalogProductOption, $eavConfig, $catalogProductType, $eventManager, $fileStorageDb, $filesystem, $coreRegistry, $logger, $productRepository, $serializer);
@@ -103,6 +105,7 @@ class Fifty extends \Magento\Catalog\Model\Product\Type\Virtual
         $this->_prizeFactory = $prizeFactory;
         $this->_prizeRespository = $prizeRepository;
         $this->_emailServiceFactory = $emailServiceFactory;
+        $this->action = $action;
     }
 
     const TYPE_ID = 'fifty';
@@ -171,7 +174,9 @@ class Fifty extends \Magento\Catalog\Model\Product\Type\Virtual
         } elseif ($this->isPending($product) && $this->getTimeToStart($product) <= 0){
             if(!$product->isObjectNew()) {
                 $product->setFiftyStatus(FiftyStatus::STATUS_PROCESSING);
-                $this->productRepository->save($product);
+                try {
+                    $this->productRepository->save($product);
+                } catch (\Exception $e){}
             }
             return $product;
         } elseif ($this->isPending($product) && $this->getTimeLeft($product) <= 0){
@@ -266,8 +271,12 @@ class Fifty extends \Magento\Catalog\Model\Product\Type\Virtual
                 /**
                  * update product status
                  */
-                $product->setFiftyStatus(FiftyStatus::STATUS_CANCELED);
-                $this->productRepository->save($product);
+                try {
+                    $product->setFiftyStatus(FiftyStatus::STATUS_CANCELED);
+                    $this->productRepository->save($product);
+                } catch (\Exception $e){
+                    $product->load($product->getId())->setFiftyStatus(FiftyStatus::STATUS_CANCELED)->save();
+                }
             } else {
                 return $product;
             }

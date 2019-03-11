@@ -15,7 +15,7 @@
 					</resource>
 				</resource>
 				<resource id="Magento_Sales::sales">
-					<resource id="Angel_Fifty::report_sales"   title="50-50 Raffle Report" translate="title" sortOrder="20" />
+					<resource id="Angel_Fifty::report_sales" title="50-50 Raffle Report" translate="title" sortOrder="20" />
 				</resource>
 			</resource>
 		</resources>

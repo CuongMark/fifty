@@ -1,7 +1,7 @@
 <?xml version="1.0" ?>
 <page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
 	<body>
-		<referenceContainer name="left">
+		<referenceContainer name="auction_sidebar">
 			<block as="fifty_sidebar" class="Angel\Fifty\Block\Fifty\Sidebar" name="fifty.sidebar" template="Angel_Fifty::fifty/sidebar.phtml"/>
 		</referenceContainer>
 	</body>

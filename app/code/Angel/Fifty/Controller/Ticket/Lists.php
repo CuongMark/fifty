@@ -37,6 +37,9 @@ class Lists extends \Magento\Framework\App\Action\Action
      */
     public function execute()
     {
-        return $this->resultPageFactory->create();
+        $page = $this->resultPageFactory->create();
+        $page->getConfig()->addBodyClass('page-products');
+        $page->getConfig()->getTitle()->prepend(__('50/50 Raffle Ticket'));
+        return $page;
     }
 }
