@@ -51,15 +51,18 @@ class Sidebar extends \Magento\Framework\View\Element\Template
     public function getFinishedFifty(){
         if (!$this->_productCollection) {
             $collection = $this->productCollectionFactory->create();
-            $collection->addAttributeToSelect('*');
             $collection->addAttributeToFilter('visibility', \Magento\Catalog\Model\Product\Visibility::VISIBILITY_BOTH);
             $collection->addAttributeToFilter('status', \Magento\Catalog\Model\Product\Attribute\Source\Status::STATUS_ENABLED);
             $collection->addFieldToFilter('type_id', \Angel\Fifty\Model\Product\Type\Fifty::TYPE_ID);
             $collection->addStoreFilter($this->_storeManager->getStore()->getId());
             $collection->addAttributeToFilter('fifty_status', FiftyStatus::STATUS_FINISHED);
             $this->prizeManagement->joinWinningNumberAndPrice($collection);
-            $collection->setCurPage(1)->setPageSize(10);
-            $collection->setOrder('raffle_end_at');
+            $collection->setCurPage(1)->setPageSize(5);
+            $collection->addAttributeToSelect(['name', 'fifty_finish_at', 'current_pot'])
+                ->setOrder('fifty_finish_at', 'DESC')
+                ->setCurPage(1)
+                ->setPageSize(5);
+//            $collection->joinAttribute('fifty_end_at', 'catalog_product/fifty_end_at', 'entity_id', null, 'inner');
             $this->_productCollection = $collection;
         }
         return $this->_productCollection;

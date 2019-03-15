@@ -18,7 +18,7 @@
 		<aclResource>Angel_Fifty::Ticket</aclResource>
 		<dataProvider class="Magento\Framework\View\Element\UiComponent\DataProvider\DataProvider" name="angel_fifty_ticket_listing_data_source">
 			<settings>
-				<requestFieldName>id</requestFieldName>
+				<requestFieldName>ticket_id</requestFieldName>
 				<primaryFieldName>ticket_id</primaryFieldName>
 			</settings>
 		</dataProvider>
@@ -50,48 +50,24 @@
 			<settings>
 				<filter>text</filter>
 				<label translate="true">Product</label>
-				<editor>
-					<editorType>text</editorType>
-					<validation>
-						<rule name="required-entry" xsi:type="boolean">true</rule>
-					</validation>
-				</editor>
 			</settings>
 		</column>
 		<column name="customer_email">
 			<settings>
 				<filter>text</filter>
 				<label translate="true">Customer</label>
-				<editor>
-					<editorType>text</editorType>
-					<validation>
-						<rule name="required-entry" xsi:type="boolean">true</rule>
-					</validation>
-				</editor>
 			</settings>
 		</column>
 		<column name="start">
 			<settings>
 				<filter>text</filter>
 				<label translate="true">Start</label>
-				<editor>
-					<editorType>text</editorType>
-					<validation>
-						<rule name="required-entry" xsi:type="boolean">true</rule>
-					</validation>
-				</editor>
 			</settings>
 		</column>
 		<column name="end">
 			<settings>
 				<filter>text</filter>
 				<label translate="true">End</label>
-				<editor>
-					<editorType>text</editorType>
-					<validation>
-						<rule name="required-entry" xsi:type="boolean">true</rule>
-					</validation>
-				</editor>
 			</settings>
 		</column>
 		<column name="created_at" class="Magento\Ui\Component\Listing\Columns\Date" component="Magento_Ui/js/grid/columns/date"  sortOrder="40">
@@ -131,6 +107,12 @@
 			<settings>
 				<filter>textRange</filter>
 				<label translate="true">Winning Prize</label>
+			</settings>
+		</column>
+		<column name="start_pot" class="Magento\Catalog\Ui\Component\Listing\Columns\Price" sortOrder="75">
+			<settings>
+				<filter>textRange</filter>
+				<label translate="true">Start Pot</label>
 			</settings>
 		</column>
 	</columns>

@@ -206,7 +206,7 @@ $lazy_owl = $this->getData("lazy_owl");
 
                         <?php $finish_at = new \DateTime($_product->getFiftyFinishAt()); ?>
                         <?php $currentPot = $_product->getTypeInstance()->getCurrentPot($_product); ?>
-                        <div><span data-role="angel-countdown" data-time-left="<?= $finish_at->getTimestamp() - $date->getTimestamp() ?>"></span></div>
+                        <div data-mage-init='{"angel/countdown": {"time_left":<?= $finish_at->getTimestamp() - $date->getTimestamp() ?>}}'></div>
                         <div id="current_pot<?= $_product->getId() ?>"><span><?= __('Current Pot: ') ?><?= $block->getPriceCurrency()->format($currentPot) ?></span></div>
 
                         <?php if($_category_config['actions'] && !$move_actions): ?>

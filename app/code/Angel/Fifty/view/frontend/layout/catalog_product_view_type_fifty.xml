@@ -14,5 +14,6 @@
                 <argument name="template" xsi:type="string">Angel_Fifty::product/addtocart.phtml</argument>
             </action>
         </referenceBlock>
+        <referenceBlock name="reviews.tab" remove="true" />
     </body>
 </page>

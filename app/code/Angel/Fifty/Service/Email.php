@@ -220,11 +220,10 @@ class Email
      * @param Product $product
      * @param Ticket $ticket
      */
-    public function sendNewTicketEmail($product, $ticket){
+    public function sendNewTicketEmail($product, $ticket, $email){
         try {
             $customer = $this->customerRepository->getById($ticket->getCustomerId());
-            $ticket->setCustomerEmail($customer->getEmail());
-            $this->setReceivers($ticket->getCustomerEmail());
+            $this->setReceivers($email);
             $this->setEmailTemplate(self::EMAIL_TEMPLATE_NEW_TICKET);
             $templateVars = [
                 'customer' => $customer,

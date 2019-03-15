@@ -91,17 +91,10 @@ $_helper = $this->helper('Magento\Catalog\Helper\Output');
                                                 <span><?= /* @escapeNotVerified */ __('Login To Purchase') ?></span>
                                             </button>
                                         <?php elseif ($_product->isSaleable()): ?>
-                                            <button type="submit"
-                                                    data-role="purchase-ticket-button"
-                                                    data-id="<?= $_product->getId() ?>"
-                                                    data-sku="<?= $_product->getSku() ?>"
-                                                    data-name="<?= $_product->getName() ?>"
-                                                    data-image="<?= $productImage->getImageUrl() ?>"
-                                                    data-price="<?= $_product->getPrice() ?>"
-                                                    data-current-pot="<?= $currentPot ?>"
+                                            <button onclick="window.location.href = '<?= /* @escapeNotVerified */ $_product->getProductUrl() ?>'"
                                                     title="<?= $block->escapeHtml(__('Purchase Tickets')) ?>"
                                                     class="action tocart primary">
-                                                <span><?= /* @escapeNotVerified */ __('Purchase Tickets') ?></span>
+                                                <span><?= /* @escapeNotVerified */ __('Pruchase Tickets') ?></span>
                                             </button>
                                         <?php endif; ?>
                                     </div>

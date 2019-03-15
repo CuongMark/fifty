@@ -48,14 +48,14 @@ class BlockHtmlTopmenuGethtmlBefore implements \Magento\Framework\Event\Observer
         $menu->addChild($node);
 
 
-        $data = [
-            'name'      => __('Coming soon'),
-            'id'        => 'fifty_pending_menu_item',
-            'url'       => $this->urlBuilder->getUrl('fifty/index/pending'),
-            'is_active' => false
-        ];
-        $processing = new Node($data, 'id', $tree, $node);
-        $node->addChild($processing);
+//        $data = [
+//            'name'      => __('Coming soon'),
+//            'id'        => 'fifty_pending_menu_item',
+//            'url'       => $this->urlBuilder->getUrl('fifty/index/pending'),
+//            'is_active' => false
+//        ];
+//        $processing = new Node($data, 'id', $tree, $node);
+//        $node->addChild($processing);
 
         $data = [
             'name'      => __('Finished'),
@@ -110,14 +110,14 @@ class BlockHtmlTopmenuGethtmlBefore implements \Magento\Framework\Event\Observer
         $menu->addChild($node);
 
 
-        $data = [
-            'name'      => __('Coming soon'),
-            'id'        => 'comming_soon_auction_menu_item',
-            'url'       => $this->urlBuilder->getUrl('auction/index/comming'),
-            'is_active' => false
-        ];
-        $processing = new Node($data, 'id', $tree, $node);
-        $node->addChild($processing);
+//        $data = [
+//            'name'      => __('Coming soon'),
+//            'id'        => 'comming_soon_auction_menu_item',
+//            'url'       => $this->urlBuilder->getUrl('auction/index/comming'),
+//            'is_active' => false
+//        ];
+//        $processing = new Node($data, 'id', $tree, $node);
+//        $node->addChild($processing);
 
         $data = [
             'name'      => __('Finished Auction'),

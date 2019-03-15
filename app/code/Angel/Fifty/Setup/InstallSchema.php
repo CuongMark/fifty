@@ -118,6 +118,16 @@ class InstallSchema implements InstallSchemaInterface
             'Status'
         );
 
+        $table_angel_fifty_ticket->addIndex(
+            $setup->getIdxName(
+                'angel_fifty_ticket',
+                ['product_id', 'start'],
+                \Magento\Framework\DB\Adapter\AdapterInterface::INDEX_TYPE_UNIQUE
+            ),
+            ['product_id', 'start'],
+            ['type' => \Magento\Framework\DB\Adapter\AdapterInterface::INDEX_TYPE_UNIQUE]
+        );
+
         $table_angel_fifty_ticket->addForeignKey(
             $setup->getFkName('angel_fifty_ticket', 'product_id', 'catalog_product_entity', 'entity_id'),
             'product_id',

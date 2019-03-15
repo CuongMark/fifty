@@ -69,8 +69,7 @@ class Tickets extends AbstractModifier
     {
         if (!$this->locator->getProduct()->getId()
             || $this->locator->getProduct()->getTypeId() != Fifty::TYPE_ID
-            || !in_array($this->locator->getProduct()->getFiftyStatus() ,[FiftyStatus::STATUS_PENDING, FiftyStatus::STATUS_FINISHED, FiftyStatus::STATUS_CANCELED])
-            || !$this->getModuleManager()->isOutputEnabled('Angel_Fifty')) {
+            || !in_array($this->locator->getProduct()->getFiftyStatus() ,[FiftyStatus::STATUS_PROCESSING, FiftyStatus::STATUS_FINISHED, FiftyStatus::STATUS_CANCELED])) {
             return $meta;
         }
 

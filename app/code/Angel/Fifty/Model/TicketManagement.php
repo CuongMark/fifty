@@ -35,7 +35,7 @@ class TicketManagement {
     public function joinWinnerToProductCollection($collection){
         $collection->getSelect()->joinLeft(
             ['ticket' => $collection->getTable('angel_fifty_ticket')],
-            'e.entity_id = ticket.product_id AND ticket.status ='.Status::STATUS_WINNING,
+            'e.entity_id = ticket.product_id AND (ticket.status ='.Status::STATUS_WINNING .' OR ticket.status = ' . Status::STATUS_PAID . ')',
             ['customer_id' => 'ticket.customer_id']
         );
         $collection->getSelect()->joinLeft(
@@ -101,6 +101,21 @@ class TicketManagement {
         $collection->getSelect()->joinLeft(['product' => new \Zend_Db_Expr('('.$productCollection->getSelect()->__toString().')')],
             "product.entity_id = main_table.product_id",
             ['product_name' => 'product.name']
+        );
+        return $collection;
+    }
+
+    /**
+     * @param Collection $collection
+     * @return Collection
+     */
+    public function joinNameAndStartPot($collection){
+        $productCollection = $this->productCollectionFactory->create();
+        $productCollection->joinAttribute('name', 'catalog_product/name', 'entity_id', null, 'inner');
+        $productCollection->joinAttribute('start_pot', 'catalog_product/start_pot', 'entity_id', null, 'inner');
+        $collection->getSelect()->joinLeft(['product' => new \Zend_Db_Expr('('.$productCollection->getSelect()->__toString().')')],
+            "product.entity_id = main_table.product_id",
+            ['start_pot' => 'product.start_pot', 'product_name' => 'product.name']
         );
         return $collection;
     }

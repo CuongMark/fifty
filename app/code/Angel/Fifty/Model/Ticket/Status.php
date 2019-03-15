@@ -19,6 +19,7 @@ class Status extends \Magento\Eav\Model\Entity\Attribute\Source\AbstractSource
     const STATUS_LOSE = 2;
     const STATUS_CANCELED = 3;
     const STATUS_PAID = 4;
+    const STATUS_PROCESSING = 5;
     /**
      * getAllOptions
      *
@@ -28,10 +29,11 @@ class Status extends \Magento\Eav\Model\Entity\Attribute\Source\AbstractSource
     {
         $this->_options = [
             ['value' => self::STATUS_PENDING, 'label' => __('Pending')],
-            ['value' => self::STATUS_WINNING, 'label' => __('Processing')],
+            ['value' => self::STATUS_WINNING, 'label' => __('Winning')],
             ['value' => self::STATUS_LOSE, 'label' => __('Lose')],
             ['value' => self::STATUS_CANCELED, 'label' => __('Canceled')],
-            ['value' => self::STATUS_PAID, 'label' => __('Paid')]
+            ['value' => self::STATUS_PAID, 'label' => __('Transered to Credit')],
+            ['value' => self::STATUS_PROCESSING, 'label' => __('Processing')]
         ];
         return $this->_options;
     }
@@ -48,7 +50,8 @@ class Status extends \Magento\Eav\Model\Entity\Attribute\Source\AbstractSource
             self::STATUS_WINNING => __('Winning'),
             self::STATUS_LOSE => __('Lose'),
             self::STATUS_CANCELED => __('Canceled'),
-            self::STATUS_PAID => __('Paid')
+            self::STATUS_PAID => __('Transered to Credit'),
+            self::STATUS_PROCESSING => __('Processing')
         );
     }
 

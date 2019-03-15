@@ -85,15 +85,15 @@
                 <sorting>asc</sorting>
             </settings>
         </column>
-        <column name="thumbnail" class="Magento\Catalog\Ui\Component\Listing\Columns\Thumbnail" component="Magento_Ui/js/grid/columns/thumbnail" sortOrder="20">
-            <settings>
-                <altField>name</altField>
-                <hasPreview>1</hasPreview>
-                <addField>true</addField>
-                <label translate="true">Thumbnail</label>
-                <sortable>false</sortable>
-            </settings>
-        </column>
+        <!--<column name="thumbnail" class="Magento\Catalog\Ui\Component\Listing\Columns\Thumbnail" component="Magento_Ui/js/grid/columns/thumbnail" sortOrder="20">-->
+            <!--<settings>-->
+                <!--<altField>name</altField>-->
+                <!--<hasPreview>1</hasPreview>-->
+                <!--<addField>true</addField>-->
+                <!--<label translate="true">Thumbnail</label>-->
+                <!--<sortable>false</sortable>-->
+            <!--</settings>-->
+        <!--</column>-->
         <column name="name" sortOrder="30">
             <settings>
                 <addField>true</addField>

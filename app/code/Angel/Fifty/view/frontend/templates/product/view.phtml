@@ -9,6 +9,46 @@
 <?php elseif ($block->isProcessing()): ?>
     <div><span id="fity_countdown" data-mage-init='{"angel/countdown": {"time_left":<?php echo $block->getTimeLeft() ?>}}'></span></div>
     <div id="current_pot<?= $block->getProduct()->getId() ?>"><?= __('Current Pot: %1', $block->getCurrentPot()) ?> </div>
+    <script>
+        require([
+            'jquery',
+            'priceBox',
+            'Magento_Catalog/js/price-utils',
+            'mage/storage'
+        ], function($, priceBox, priceUnits, storage) {
+            var data_id = 0;
+            var interval = setInterval(function () {
+                $.getJSON( "<?= $block->getBaseUrl().'pub/media/angel/fifty/fifty_'. $block->getProduct()->getId() .'.json' ?>", function(data) {
+                    if (data_id === 0){
+                        data_id = data.id;
+                    } else if(data.id !== data_id){
+                        data_id = data.id;
+                        if (data.current_pot) {
+                            var currentPotElement = $('#current_pot<?= $block->getProduct()->getId() ?>');
+                            if (currentPotElement.length) {
+                                currentPotElement[0].innerText = 'Current Pot: ' + priceUnits.formatPrice(parseFloat(data.current_pot));
+                                currentPotElement.addClass('new-update-fifty');
+                                setTimeout(function () {
+                                    currentPotElement.removeClass('new-update-fifty');
+                                }, 4000);
+                            }
+                        }
+                    }
+                })
+                    .fail(function(jqxhr, textStatus, error) {
+                        var err = textStatus + ", " + error;
+                        console.log( "Request Failed: " + err );
+                    });
+            }, 5000);
+
+        });
+    </script>
+    <style>
+        .new-update-fifty {
+            background-color: #EE3D43;
+            color: white;
+        }
+    </style>
 <?php elseif ($block->isFinished()): ?>
     <div id="winning_number"><?= __('Winning Number: %1', $block->getWinningNumber()) ?> </div>
     <div id="winning_prize"><?= __('Winning Prize: %1', $block->getWinningPrize()) ?> </div>

@@ -24,7 +24,7 @@ class Processing extends \Angel\Fifty\Block\Fifty
             $collection->addAttributeToFilter('visibility', \Magento\Catalog\Model\Product\Visibility::VISIBILITY_BOTH);
             $collection->addAttributeToFilter('status', \Magento\Catalog\Model\Product\Attribute\Source\Status::STATUS_ENABLED);
             $collection->addFieldToFilter('type_id', \Angel\Fifty\Model\Product\Type\Fifty::TYPE_ID);
-            $collection->addStoreFilter($this->_storeManager->getStore()->getId());
+//            $collection->addStoreFilter($this->_storeManager->getStore()->getId());
             $collection->addAttributeToFilter('fifty_status', FiftyStatus::STATUS_PROCESSING);
 
             $collection->getSelect()->joinLeft(
