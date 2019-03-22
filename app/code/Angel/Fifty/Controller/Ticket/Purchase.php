@@ -90,8 +90,8 @@ class Purchase extends \Magento\Framework\App\Action\Action
                     $productTypeInstance = $product->getTypeInstance();
                     /** @var \Angel\Fifty\Model\Data\Ticket $newTicketData */
                     $newTicketData = $productTypeInstance->createTicket($product, $customer, $qty);
-                    $message = $qty == 1 ? __('You purchaed successfully a ticket. The ticket number is %1', $newTicketData->getStart())
-                        : __('You purchaed successfully %1 tickets. The ticket numbers is from %2 to %3', $qty, $newTicketData->getStart(), $newTicketData->getEnd());
+                    $message = $qty == 1 ? __('You successfully purchased a ticket. The ticket number is %1', $newTicketData->getStart())
+                        : __('You successfully purchased %1 tickets. The ticket numbers are from %2 to %3', $qty, $newTicketData->getStart(), $newTicketData->getEnd());
                     return $this->jsonResponse([
                         'success' => true,
                         'data' => $newTicketData->__toArray(),

@@ -126,7 +126,7 @@ class TicketManagement {
      */
     public function joinPrize($collection){
         $collection->getSelect()->joinLeft(['prize' => $collection->getTable('angel_fifty_prize')],
-            'prize.product_id = main_table.product_id AND main_table.status = '.Status::STATUS_WINNING,
+            'prize.product_id = main_table.product_id AND (main_table.status = '.Status::STATUS_WINNING .' OR main_table.status =' . Status::STATUS_PAID .')',
             ['winning_number' => 'prize.winning_number' , 'winning_prize' => 'prize.winning_prize']
         );
         return $collection;

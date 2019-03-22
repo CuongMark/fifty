@@ -9,7 +9,10 @@
 }
 .earn-money{
     background-color: green;
+    font-weight: bold;
 }
 .lose-money{
     background-color: indianred;
+    color: #eae5e5;
+    font-weight: bold;
 }
