@@ -1,7 +1,7 @@
 <?xml version="1.0" ?>
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
 	<menu>
-		<add id="Angel::fifty_top_level" module="Angel_Fifty" resource="Angel_Fifty::fifty" sortOrder="10" title="50-50 Raffle"/>
+		<add id="Angel::fifty_top_level" module="Angel_Fifty" resource="Angel_Fifty::fifty" parent="Angel::top_level" sortOrder="20" title="50-50 Raffle"/>
 			<add action="angel_fifty/index/index" id="Angel_Fifty::index" module="Angel_Fifty" parent="Angel::fifty_top_level" resource="Angel_Fifty::manager" sortOrder="10" title="50-50 Product"/>
 			<add action="angel_fifty/ticket/index" id="Angel_Fifty::ticket" module="Angel_Fifty" parent="Angel::fifty_top_level" resource="Angel_Fifty::ticket" sortOrder="20" title="Tickets"/>
 			<add action="adminhtml/system_config/edit/section/fifty" id="Angel_Fifty::setting" module="Angel_Fifty" parent="Angel::fifty_top_level" resource="Angel_Fifty::config" sortOrder="30" title="Setting"/>

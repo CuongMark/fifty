@@ -59,7 +59,6 @@ class Fifty
      */
     public function execute()
     {
-        $now = $this->dateTimeFactory->create()->date();
         /** @var \Magento\Catalog\Model\ResourceModel\Product\Collection $collection */
         $collection = $this->productCollectionFactory->create()
             ->addAttributeToFilter('type_id', \Angel\Fifty\Model\Product\Type\Fifty::TYPE_ID)
@@ -69,6 +68,5 @@ class Fifty
         foreach ($collection as $product){
             $product->getTypeInstance()->updateFiftyStatus($product);
         }
-//        $this->logger->addInfo('Cronjob update Raffle Status is executed at '.$now);
     }
 }

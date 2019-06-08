@@ -11,6 +11,7 @@
 
 namespace Angel\Fifty\Model\Product\Type;
 
+use Angel\Core\Model\RandomNumberGenerate;
 use Angel\Fifty\Api\PrizeRepositoryInterface;
 use Angel\Fifty\Model\Prize;
 use Angel\Fifty\Model\PrizeFactory;
@@ -187,7 +188,7 @@ class Fifty extends \Magento\Catalog\Model\Product\Type\Virtual
             if (!$this->hasWinningTickets($product) && $this->getTicketCollection($product)->getSize()) {
                 try {
                     $lastTicketNumer = $this->getLastTicketNumberByProduct($product);
-                    $winningNumber = mt_rand(1, $lastTicketNumer);
+                    $winningNumber = RandomNumberGenerate::getWinningNumber(1, $lastTicketNumer);
 
                     /**
                      * Create Prize
