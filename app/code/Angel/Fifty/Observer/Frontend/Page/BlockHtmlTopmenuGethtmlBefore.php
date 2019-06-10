@@ -48,14 +48,14 @@ class BlockHtmlTopmenuGethtmlBefore implements \Magento\Framework\Event\Observer
         $menu->addChild($node);
 
 
-//        $data = [
-//            'name'      => __('Coming soon'),
-//            'id'        => 'fifty_pending_menu_item',
-//            'url'       => $this->urlBuilder->getUrl('fifty/index/pending'),
-//            'is_active' => false
-//        ];
-//        $processing = new Node($data, 'id', $tree, $node);
-//        $node->addChild($processing);
+        $data = [
+            'name'      => __('Current 50-50 Raffle'),
+            'id'        => 'fifty_current_menu_item',
+            'url'       => $this->urlBuilder->getUrl('fifty/index/processing'),
+            'is_active' => false
+        ];
+        $processing = new Node($data, 'id', $tree, $node);
+        $node->addChild($processing);
 
         $data = [
             'name'      => __('Finished'),
@@ -80,6 +80,15 @@ class BlockHtmlTopmenuGethtmlBefore implements \Magento\Framework\Event\Observer
         ];
         $node = new Node($data, 'id', $tree, $menu);
         $menu->addChild($node);
+
+        $data = [
+            'name'      => __('Current Raffle'),
+            'id'        => 'raffle_current_menu_item',
+            'url'       => $this->urlBuilder->getUrl('raffle'),
+            'is_active' => false
+        ];
+        $processing = new Node($data, 'id', $tree, $node);
+        $node->addChild($processing);
 
         $data = [
             'name'      => __('Finished'),
@@ -119,14 +128,14 @@ class BlockHtmlTopmenuGethtmlBefore implements \Magento\Framework\Event\Observer
 //        $processing = new Node($data, 'id', $tree, $node);
 //        $node->addChild($processing);
 
-        $data = [
-            'name'      => __('Finished Auction'),
-            'id'        => 'finished_auction_menu_item',
-            'url'       => $this->urlBuilder->getUrl('auction/index/finished'),
-            'is_active' => false
-        ];
-        $processing = new Node($data, 'id', $tree, $node);
-        $node->addChild($processing);
+//        $data = [
+//            'name'      => __('Finished Auction'),
+//            'id'        => 'finished_auction_menu_item',
+//            'url'       => $this->urlBuilder->getUrl('auction/index/finished'),
+//            'is_active' => false
+//        ];
+//        $processing = new Node($data, 'id', $tree, $node);
+//        $node->addChild($processing);
 
         /**
          * end add auction to menu

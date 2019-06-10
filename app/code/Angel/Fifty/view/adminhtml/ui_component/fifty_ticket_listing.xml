@@ -83,7 +83,7 @@
                 <label translate="true">Credit Transaction Id</label>
             </settings>
         </column>
-        <column name="prize.winning_number">
+        <column name="winning_number">
             <settings>
                 <filter>text</filter>
                 <label translate="true">Winning Number</label>
@@ -103,7 +103,7 @@
                 <label translate="true">Price</label>
             </settings>
         </column>
-        <column name="prize.winning_prize" class="Magento\Catalog\Ui\Component\Listing\Columns\Price" sortOrder="70">
+        <column name="winning_prize" class="Magento\Catalog\Ui\Component\Listing\Columns\Price" sortOrder="70">
             <settings>
                 <filter>textRange</filter>
                 <label translate="true">Winning Prize</label>

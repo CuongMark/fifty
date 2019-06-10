@@ -64,6 +64,7 @@ class Fifty extends AbstractModifier
         if ($product->getFiftyStatus() != FiftyStatus::STATUS_PENDING) {
             $meta = $this->disableStartAtField($meta);
             $meta = $this->disableStartPotField($meta);
+            $meta = $this->disablePriceField($meta);
         }
         if ($productTypeInstance->isFinished($product)) {
             $meta = $this->disableFinishAtField($meta);
@@ -81,6 +82,32 @@ class Fifty extends AbstractModifier
                         'container_fifty_status' => [
                             'children' => [
                                 'fifty_status' =>[
+                                    'arguments' => [
+                                        'data' => [
+                                            'config' => [
+                                                'disabled' => true,
+                                            ],
+                                        ],
+                                    ]
+                                ]
+                            ]
+                        ]
+                    ]
+                ]
+            ]
+        );
+        return $meta;
+    }
+
+    protected function disablePriceField(array $meta){
+        $meta = array_replace_recursive(
+            $meta,
+            [
+                'product-details' => [
+                    'children' => [
+                        'container_price' => [
+                            'children' => [
+                                'price' =>[
                                     'arguments' => [
                                         'data' => [
                                             'config' => [
