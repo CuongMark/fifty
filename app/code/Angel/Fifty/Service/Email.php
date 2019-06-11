@@ -177,7 +177,7 @@ class Email
                 'customer' => $customer,
                 'product_name' => $product->getName(),
                 'winning_number' => $prize->getWinningNumber(),
-                'winnint_prize' => $this->priceCurrency->format($prize->getWinningPrize()),
+                'winning_prize' => $this->priceCurrency->format($prize->getWinningPrize()),
                 'start' => $ticket->getStart(),
                 'end' => $ticket->getEnd(),
                 'price' => $this->priceCurrency->format($ticket->getPrice(), false, 0)
@@ -206,7 +206,7 @@ class Email
                 'customer' => $customer,
                 'product_name' => $product->getName(),
                 'winning_number' => $prize->getWinningNumber(),
-                'winnint_prize' => $this->priceCurrency->format($prize->getWinningPrize(), false, 0)
+                'winning_prize' => $this->priceCurrency->format($prize->getWinningPrize(), false, 0)
             ];
             $this->setTemplateVars($templateVars);
             //send email
