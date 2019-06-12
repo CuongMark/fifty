@@ -13,6 +13,8 @@ namespace Angel\Fifty\Block\Fifty;
 
 use Angel\Fifty\Model\PrizeManagement;
 use Angel\Fifty\Model\Product\Attribute\Source\FiftyStatus;
+use Angel\Fifty\Model\Product\Type\Fifty;
+use Magento\Catalog\Model\Product;
 use Magento\Framework\Pricing\PriceCurrencyInterface;
 
 class Sidebar extends \Magento\Framework\View\Element\Template
@@ -82,5 +84,15 @@ class Sidebar extends \Magento\Framework\View\Element\Template
             PriceCurrencyInterface::DEFAULT_PRECISION,
             1 //Todo getStore
         );
+    }
+
+    /**
+     * @param Product $product
+     * @return string
+     */
+    public function getWinningBidderName($product){
+        /** @var Fifty $productTypeInstance */
+        $productTypeInstance = $product->getTypeInstance();
+        return $productTypeInstance->getWinningBidderName($product);
     }
 }

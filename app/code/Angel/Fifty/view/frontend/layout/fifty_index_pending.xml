@@ -5,7 +5,7 @@
 	</head>
 	<body>
 		<referenceContainer name="content">
-			<block class="Angel\Fifty\Block\Index\Pending" name="category.products.list" as="product_list" template="Angel_Fifty::fifty/list_pending.phtml" cacheable="false">
+			<block class="Angel\Fifty\Block\Index\Pending" name="category.products.list" as="product_list" template="Angel_Fifty::fifty/list_pending.phtml">
 				<block class="Magento\Framework\View\Element\RendererList" name="category.product.type.details.renderers" as="details.renderers">
 					<block class="Magento\Framework\View\Element\Template" name="category.product.type.details.renderers.default" as="default"/>
 				</block>

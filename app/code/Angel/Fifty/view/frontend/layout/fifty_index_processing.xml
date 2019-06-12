@@ -6,7 +6,7 @@
 	</head>
 	<body>
 		<referenceContainer name="content">
-			<block class="Angel\Fifty\Block\Index\Processing" name="fifty.products.list" as="product_list" template="Angel_Fifty::fifty/list_processing.phtml" cacheable="false">
+			<block class="Angel\Fifty\Block\Index\Processing" name="fifty.products.list" as="product_list" template="Angel_Fifty::fifty/list_processing.phtml">
 				<block class="Magento\Framework\View\Element\RendererList" name="category.product.type.details.renderers" as="details.renderers">
 					<block class="Magento\Framework\View\Element\Template" name="category.product.type.details.renderers.default" as="default"/>
 				</block>

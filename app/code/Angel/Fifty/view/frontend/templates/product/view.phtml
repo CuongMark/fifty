@@ -51,6 +51,7 @@
     </style>
 <?php elseif ($block->isFinished()): ?>
     <div id="winning_number"><?= __('Winning Number: %1', $block->getWinningNumber()) ?> </div>
+    <div id="bidder_name"><?= __('Winner: %1', $block->getWinningBidderName()) ?> </div>
     <div id="winning_prize"><?= __('Winning Prize: %1', $block->getWinningPrize()) ?> </div>
 <?php endif; ?>
 <script type="text/x-magento-init">

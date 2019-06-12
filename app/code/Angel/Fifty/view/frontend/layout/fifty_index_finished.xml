@@ -2,7 +2,7 @@
 <page layout="2columns-left" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
 	<body>
 		<referenceContainer name="content">
-			<block class="Angel\Fifty\Block\Index\Finished" name="category.products.list" as="product_list" template="Angel_Fifty::fifty/list_finished.phtml" cacheable="false">
+			<block class="Angel\Fifty\Block\Index\Finished" name="category.products.list" as="product_list" template="Angel_Fifty::fifty/list_finished.phtml">
 				<block class="Magento\Framework\View\Element\RendererList" name="category.product.type.details.renderers" as="details.renderers">
 					<block class="Magento\Framework\View\Element\Template" name="category.product.type.details.renderers.default" as="default"/>
 				</block>

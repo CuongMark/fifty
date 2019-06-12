@@ -29,6 +29,7 @@ use Angel\Fifty\Service\Files;
 use Magento\Catalog\Api\ProductRepositoryInterface;
 use Magento\Catalog\Model\Product;
 use Magento\Customer\Model\Customer;
+use Magento\Customer\Model\ResourceModel\CustomerRepository;
 use Magento\Framework\DB\Adapter\AdapterInterface;
 
 class Fifty extends \Magento\Catalog\Model\Product\Type\Virtual
@@ -76,9 +77,19 @@ class Fifty extends \Magento\Catalog\Model\Product\Type\Virtual
     /**
      * @var \Magento\Framework\DB\Adapter\AdapterInterface
      */
-    private $_db;
-    private $action;
-    private $files;
+    protected $_db;
+    /**
+     * @var \Magento\Catalog\Model\ResourceModel\Product\Action
+     */
+    protected $action;
+    /**
+     * @var Files
+     */
+    protected $files;
+    /**
+     * @var CustomerRepository
+     */
+    protected $customerRepository;
 
     public function __construct(
         \Magento\Catalog\Model\Product\Option $catalogProductOption,
@@ -98,6 +109,7 @@ class Fifty extends \Magento\Catalog\Model\Product\Type\Virtual
         PrizeRepositoryInterface $prizeRepository,
         EmailFactory $emailServiceFactory,
         Files $files,
+        CustomerRepository $customerRepository,
         \Magento\Catalog\Model\ResourceModel\Product\Action $action,
         \Magento\Framework\Serialize\Serializer\Json $serializer = null
     ){
@@ -111,6 +123,7 @@ class Fifty extends \Magento\Catalog\Model\Product\Type\Virtual
         $this->_emailServiceFactory = $emailServiceFactory;
         $this->action = $action;
         $this->files = $files;
+        $this->customerRepository = $customerRepository;
     }
 
     const TYPE_ID = 'fifty';
@@ -301,11 +314,27 @@ class Fifty extends \Magento\Catalog\Model\Product\Type\Virtual
      */
     public function getWinningTickets($product){
         $collection = $this->getTicketCollection($product);
-        $collection->addFieldToFilter('status', Status::STATUS_WINNING);
+        $collection->addFieldToFilter('status', ['in' => [Status::STATUS_PAID, Status::STATUS_WINNING]]);
         $collection->setPageSize(1)
             ->setCurPage(1)
             ->setOrder('ticket_id', 'DESC');
         return $collection->getFirstItem();
+    }
+
+    /**
+     * @param $product
+     * @return mixed
+     */
+    public function getWinningBidderName($product){
+        /** @var \Angel\Fifty\Model\Data\Ticket $winningTicket */
+        try {
+            $winningTicket = $this->getWinningTickets($product);
+            $customer = $this->customerRepository->getById($winningTicket->getCustomerId());
+            $biddername = $customer->getCustomAttribute('bidder_name')->getValue();
+            return $biddername? $biddername : $customer->getLastname();
+        } catch (\Exception $e){
+            return '';
+        }
     }
 
     /**

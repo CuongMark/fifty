@@ -3,6 +3,7 @@
 
 namespace Angel\Fifty\Block\Product;
 
+use Angel\Fifty\Model\Product\Type\Fifty;
 use Magento\Catalog\Api\ProductRepositoryInterface;
 
 class View extends \Magento\Catalog\Block\Product\View
@@ -23,33 +24,44 @@ class View extends \Magento\Catalog\Block\Product\View
         parent::__construct($context, $urlEncoder, $jsonEncoder, $string, $productHelper, $productTypeConfig, $localeFormat, $customerSession, $productRepository, $priceCurrency, $data);
     }
 
+    /**
+     * @return \Magento\Catalog\Model\Product\Type\AbstractType|Fifty
+     */
+    public function getProductTypeInstance(){
+        return $this->getProduct()->getTypeInstance();
+    }
+
     public function isProcessing(){
-        return $this->getProduct()->getTypeInstance()->isProcessing($this->getProduct());
+        return $this->getProductTypeInstance()->isProcessing($this->getProduct());
     }
 
     public function isPending(){
-        return $this->getProduct()->getTypeInstance()->isPending($this->getProduct());
+        return $this->getProductTypeInstance()->isPending($this->getProduct());
     }
 
     public function isFinished(){
-        return $this->getProduct()->getTypeInstance()->isFinished($this->getProduct());
+        return $this->getProductTypeInstance()->isFinished($this->getProduct());
     }
 
     public function getTimeToStart(){
-        return $this->getProduct()->getTypeInstance()->getTimeToStart($this->getProduct());
+        return $this->getProductTypeInstance()->getTimeToStart($this->getProduct());
     }
 
     public function getTimeLeft(){
-        return $this->getProduct()->getTypeInstance()->getTimeLeft($this->getProduct());
+        return $this->getProductTypeInstance()->getTimeLeft($this->getProduct());
     }
 
     public function getCurrentPot(){
-        return $this->priceCurrency->format($this->getProduct()->getTypeInstance()->getCurrentPot($this->getProduct()));
+        return $this->priceCurrency->format($this->getProductTypeInstance()->getCurrentPot($this->getProduct()));
     }
     public function getWinningNumber(){
-        return $this->getProduct()->getTypeInstance()->getPrize($this->getProduct())->getWinningNumber();
+        return $this->getProductTypeInstance()->getPrize($this->getProduct())->getWinningNumber();
     }
     public function getWinningPrize(){
-        return $this->priceCurrency->format($this->getProduct()->getTypeInstance()->getPrize($this->getProduct())->getWinningPrize());
+        return $this->priceCurrency->format($this->getProductTypeInstance()->getPrize($this->getProduct())->getWinningPrize());
+    }
+
+    public function getWinningBidderName(){
+        return $this->getProductTypeInstance()->getWinningBidderName($this->getProduct());
     }
 }
