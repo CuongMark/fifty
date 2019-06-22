@@ -90,9 +90,9 @@ class Sidebar extends \Magento\Framework\View\Element\Template
      * @param Product $product
      * @return string
      */
-    public function getWinningBidderName($product){
+    public function getWinningNickName($product){
         /** @var Fifty $productTypeInstance */
         $productTypeInstance = $product->getTypeInstance();
-        return $productTypeInstance->getWinningBidderName($product);
+        return $productTypeInstance->getWinningNickName($product);
     }
 }

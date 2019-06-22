@@ -62,6 +62,6 @@ class View extends \Magento\Catalog\Block\Product\View
     }
 
     public function getWinningBidderName(){
-        return $this->getProductTypeInstance()->getWinningBidderName($this->getProduct());
+        return $this->getProductTypeInstance()->getWinningNickName($this->getProduct());
     }
 }

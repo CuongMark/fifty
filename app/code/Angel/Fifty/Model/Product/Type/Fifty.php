@@ -325,12 +325,12 @@ class Fifty extends \Magento\Catalog\Model\Product\Type\Virtual
      * @param $product
      * @return mixed
      */
-    public function getWinningBidderName($product){
+    public function getWinningNickName($product){
         /** @var \Angel\Fifty\Model\Data\Ticket $winningTicket */
         try {
             $winningTicket = $this->getWinningTickets($product);
             $customer = $this->customerRepository->getById($winningTicket->getCustomerId());
-            $biddername = $customer->getCustomAttribute('bidder_name')->getValue();
+            $biddername = $customer->getCustomAttribute('vgiss_nick_name')->getValue();
             return $biddername? $biddername : $customer->getLastname();
         } catch (\Exception $e){
             return '';

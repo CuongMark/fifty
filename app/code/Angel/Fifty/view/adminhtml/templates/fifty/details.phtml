@@ -36,7 +36,7 @@
     </li>
     <li>
         <strong><?= __('Finished At:') ?></strong>
-        <span><?= $block->formatDate($block->getPrize()->getCreatedAt(), \IntlDateFormatter::MEDIUM ). ' ' . $block->formatTime($block->getPrize()->getCreatedAt(), \IntlDateFormatter::MEDIUM) ?></span>
+        <span><?= $block->formatTime($block->getPrize()->getCreatedAt(), \IntlDateFormatter::MEDIUM, true) ?></span>
     </li>
     <?php endif; ?>
     <li>

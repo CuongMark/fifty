@@ -14,7 +14,7 @@ $getListFinishedFifty = $block->getFinishedFifty();
                     <span><a href="<?= $block->getUrl('catalog/product/view', array('id'=> $item->getId())) ?>"><?= $item->getName() ?></a> </span>
                     <br/>
                     <span><?= $item->getWinningNumber() ?></span><br/>
-                    <span><?= $block->getWinningBidderName($item) ?></span><br/>
+                    <span><?= $block->getWinningNickName($item) ?></span><br/>
                     <span><?= $block->formatPrice($item->getWinningPrize()) ?></span>
                 </li>
             <?php endforeach; ?>

@@ -3,9 +3,11 @@
 	<acl>
 		<resources>
 			<resource id="Magento_Backend::admin">
-				<resource id="Angel_Fifty::fifty" sortOrder="10" title="fifty">
-					<resource id="Angel_Fifty::manager" sortOrder="10" title="index index"/>
-					<resource id="Angel_Fifty::ticket" sortOrder="10" title="report sales"/>
+				<resource id="Angel_Core::angel">
+					<resource id="Angel_Fifty::fifty" sortOrder="10" title="fifty">
+						<resource id="Angel_Fifty::manager" sortOrder="10" title="index index"/>
+						<resource id="Angel_Fifty::ticket" sortOrder="10" title="report sales"/>
+					</resource>
 				</resource>
 				<resource id="Magento_Backend::stores">
 					<resource id="Magento_Backend::stores_settings">
