@@ -330,8 +330,8 @@ class Fifty extends \Magento\Catalog\Model\Product\Type\Virtual
         try {
             $winningTicket = $this->getWinningTickets($product);
             $customer = $this->customerRepository->getById($winningTicket->getCustomerId());
-            $biddername = $customer->getCustomAttribute('vgiss_nick_name')->getValue();
-            return $biddername? $biddername : $customer->getLastname();
+            $biddername = $customer->getCustomAttribute('vgiss_nick_name');
+            return $biddername? $biddername->getValue() : $customer->getLastname();
         } catch (\Exception $e){
             return '';
         }
