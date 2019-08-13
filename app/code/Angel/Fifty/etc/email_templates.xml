@@ -1,22 +1,22 @@
 <?xml version="1.0"?>
 <!--
-  ~ Magestore
+  ~ Vgiss
   ~
   ~ NOTICE OF LICENSE
   ~
-  ~ This source file is subject to the Magestore.com license that is
+  ~ This source file is subject to the Vgiss.com license that is
   ~ available through the world-wide-web at this URL:
-  ~ http://www.magestore.com/license-agreement.html
+  ~ http://www.vgiss.com/license-agreement.html
   ~
   ~ DISCLAIMER
   ~
   ~ Do not edit or add to this file if you wish to upgrade this extension to newer
   ~ version in the future.
   ~
-  ~ @category    Magestore
-  ~ @package     Magestore_Customercredit
-  ~ @copyright   Copyright (c) 2017 Magestore (http://www.magestore.com/)
-  ~ @license     http://www.magestore.com/license-agreement.html
+  ~ @category    Vgiss
+  ~ @package     Vgiss_Customercredit
+  ~ @copyright   Copyright (c) 2017 Vgiss (http://www.vgiss.com/)
+  ~ @license     http://www.vgiss.com/license-agreement.html
   ~
   -->
 

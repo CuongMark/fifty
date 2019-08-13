@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright © 2016 Magestore. All rights reserved.
+ * Copyright © 2016 Vgiss. All rights reserved.
  * See COPYING.txt for license details.
  */
 
@@ -28,7 +28,7 @@ class Email
     /** @var array of name and email of the sender ['name'=>'sender_name', 'email'=>'steve@magetore.com']  */
     protected $_sender;
 
-    /** @var  array of receiver emails: ['receiver1@magestore.com', 'receiver2@gmail.com'] */
+    /** @var  array of receiver emails: ['receiver1@vgiss.com', 'receiver2@gmail.com'] */
     protected $_receivers;
 
     /** @var   */

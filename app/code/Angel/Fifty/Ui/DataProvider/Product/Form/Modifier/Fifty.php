@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Copyright © 2016 Magestore. All rights reserved.
+ * Copyright © 2016 Vgiss. All rights reserved.
  * See COPYING.txt for license details.
  */
 

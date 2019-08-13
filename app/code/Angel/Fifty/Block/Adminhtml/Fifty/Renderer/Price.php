@@ -1,22 +1,22 @@
 <?php
 /**
- * Magestore
+ * Vgiss
  *
  * NOTICE OF LICENSE
  *
- * This source file is subject to the Magestore.com license that is
+ * This source file is subject to the Vgiss.com license that is
  * available through the world-wide-web at this URL:
- * http://www.magestore.com/license-agreement.html
+ * http://www.vgiss.com/license-agreement.html
  *
  * DISCLAIMER
  *
  * Do not edit or add to this file if you wish to upgrade this extension to newer
  * version in the future.
  *
- * @category    Magestore
- * @package     Magestore_Customercredit
- * @copyright   Copyright (c) 2017 Magestore (http://www.magestore.com/)
- * @license     http://www.magestore.com/license-agreement.html
+ * @category    Vgiss
+ * @package     Vgiss_Customercredit
+ * @copyright   Copyright (c) 2017 Vgiss (http://www.vgiss.com/)
+ * @license     http://www.vgiss.com/license-agreement.html
  *
  */
 
@@ -29,7 +29,7 @@ class Price extends \Magento\Backend\Block\Widget\Grid\Column\Renderer\AbstractR
      */
     protected $_helperCore;
     /**
-     * @var \Magestore\Customercredit\Model\CustomercreditFactory
+     * @var \Vgiss\Customercredit\Model\CustomercreditFactory
      */
     protected $_customercreditFactory;
 
@@ -39,7 +39,7 @@ class Price extends \Magento\Backend\Block\Widget\Grid\Column\Renderer\AbstractR
      */
     public function __construct(
         \Magento\Backend\Block\Context $context,
-        \Magestore\Customercredit\Model\CustomercreditFactory $customercreditFactory,
+        \Vgiss\Customercredit\Model\CustomercreditFactory $customercreditFactory,
         \Magento\Framework\Pricing\Helper\Data $helperCore,
         array $data = []
     )

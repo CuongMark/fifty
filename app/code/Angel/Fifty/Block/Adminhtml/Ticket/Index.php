@@ -39,7 +39,7 @@ class Index extends \Magento\Backend\Block\Template
             return;
         }
         $resultPage = $this->resultPageFactory->create();
-        $resultPage->setActiveMenu('Magestore_Customercredit::customercredit');
+        $resultPage->setActiveMenu('Vgiss_Customercredit::customercredit');
         $resultPage->addBreadcrumb(__('Manage Customers Using Credit'), __('Manage Customers Using Credit'));
         $resultPage->getConfig()->getTitle()->prepend(__('Manage Customers Using Credit'));
 
@@ -48,6 +48,6 @@ class Index extends \Magento\Backend\Block\Template
 
     protected function _isAllowed()
     {
-        return $this->_authorization->isAllowed('Magestore_Customercredit::customercredit');
+        return $this->_authorization->isAllowed('Vgiss_Customercredit::customercredit');
     }
 }
